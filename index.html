@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>理化生实验库</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f0e8;--bg2:#ede6d8;--card:#faf6ef;--card-dark:#3a2a1a;--card-red:#c4443c;
+  --border:#d4c9b5;--border2:#c4b8a0;
+  --text:#2c2620;--text2:#6b5d4f;--text3:#a09078;
+  --red:#c4443c;--red-d:#a03328;--blue:#2c5282;--green:#2f855a;--gold:#b7791f;
+  --serif:"STSong","SimSun","Noto Serif SC",serif;
+  --sans:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans)}
+::selection{background:rgba(196,68,60,.15)}
+
+/* ===== Hero ===== */
+.hero{padding:24px 20px 0;position:relative;background:var(--bg);text-align:center;border-bottom:2px solid var(--text)}
+.hero-stats{display:none}
+.title-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
+.logo-img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(44,38,32,.15))}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
+.hero h1{font-family:var(--serif);font-size:42px;font-weight:900;letter-spacing:8px;color:var(--text);line-height:1.2}
+.tagline{text-align:center;font-size:14px;color:var(--text2);letter-spacing:6px;margin-bottom:18px;font-family:var(--serif)}
+.divider{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.divider .line{height:1px;width:80px;background:var(--border2)}
+.divider .dot2{width:5px;height:5px;border-radius:50%;background:var(--red)}
+/* ===== Tab bar ===== */
+.tabbar{display:flex;align-items:center;justify-content:center;gap:0;padding:0 20px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50}
+.tab{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:3px;padding:14px 28px;color:var(--text2);cursor:pointer;position:relative;transition:color .2s;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--red);border-bottom-color:var(--red)}
+.tab .dot-ind{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:5px;vertical-align:middle}
+.search-inline{margin-left:auto;display:flex;align-items:center;gap:8px}
+.search-inline input{width:220px;padding:8px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--card);color:var(--text);font-size:13px;outline:none;transition:border .2s;font-family:var(--sans)}
+.search-inline input:focus{border-color:var(--red);width:260px}
+.search-inline .icon{color:var(--text3);font-size:15px}
+/* ===== Container ===== */
+.container{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
+/* ===== Chapter Card ===== */
+.ch-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-bottom:24px}
+.ch-card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow .25s,transform .2s;animation:fadeUp .4s ease both}
+.ch-card:hover{box-shadow:0 4px 20px rgba(44,38,32,.12);transform:translateY(-2px)}
+.ch-card.dark{background:var(--card-dark);color:#e8ddd0;border-color:#4a3828}
+.ch-card.dark .ch-name{color:#f0ece4}
+.ch-card.dark .lab-item{border-color:#4a3828;color:#d4c4a8}
+.ch-card.dark .lab-item:hover{background:#4a3520}
+.ch-card.dark .lab-title{color:#e0d0b8}
+.ch-card.red{background:var(--card-red);color:#fff;border-color:var(--card-red)}
+.ch-card.red .ch-name{color:#fff}
+.ch-card.red .lab-item{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.85)}
+.ch-card.red .lab-item:hover{background:rgba(255,255,255,.08)}
+.ch-card.red .lab-title{color:#fff}
+/* Chapter header */
+.ch-head{padding:16px 18px 12px;border-bottom:1px solid var(--border)}
+.ch-card.dark .ch-head{border-color:#4a3828}
+.ch-card.red .ch-head{border-color:rgba(255,255,255,.15)}
+.ch-num{font-family:var(--serif);font-size:13px;color:var(--red);letter-spacing:2px;font-weight:700;margin-bottom:4px}
+.ch-card.dark .ch-num{color:#d4a574}
+.ch-card.red .ch-num{color:#ffb3ab}
+.ch-name{font-family:var(--serif);font-size:20px;font-weight:900;letter-spacing:2px;color:var(--text);line-height:1.3}
+.ch-count{font-size:11px;color:var(--text3);margin-top:4px}
+/* Lab items */
+.lab-items{padding:8px 0}
+.lab-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(212,201,181,.3)}
+.lab-item:last-child{border-bottom:none}
+.lab-item:hover{background:rgba(196,68,60,.06)}
+.ch-card.dark .lab-item:hover{background:rgba(255,255,255,.05)}
+.ch-card.red .lab-item:hover{background:rgba(255,255,255,.08)}
+.lab-bullet{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--text3);flex-shrink:0;transition:all .15s}
+.ch-card.dark .lab-bullet{border-color:#8a7048}
+.ch-card.red .lab-bullet{border-color:rgba(255,255,255,.4)}
+.lab-item:hover .lab-bullet{background:var(--red);border-color:var(--red)}
+.lab-title{font-size:14px;color:var(--text);flex:1;line-height:1.4;font-family:var(--serif)}
+.ch-card.dark .lab-title{color:#ccc}
+.ch-card.red .lab-title{color:rgba(255,255,255,.9)}
+.grade-tag{font-size:10px;color:var(--text3);flex-shrink:0;font-family:var(--serif)}
+.ch-card.dark .grade-tag{color:#a08868}
+.ch-card.red .grade-tag{color:rgba(255,255,255,.5)}
+.lab-arrow{color:var(--text3);font-size:12px;flex-shrink:0;opacity:0;transition:opacity .15s}
+.lab-item:hover .lab-arrow{opacity:1}
+/* ===== Auth / Gate ===== */
+#authView,#gateView{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--bg);position:relative;padding:24px 16px;text-align:center}
+#authView::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
+.login-card{text-align:center;width:min(92vw,380px);position:relative}
+.login-icon{font-size:48px;margin-bottom:16px}
+.login-card h1{font-family:var(--serif);font-size:32px;font-weight:900;letter-spacing:6px;margin-bottom:6px;color:var(--text)}
+.login-card .tag2{font-size:14px;color:var(--text2);letter-spacing:4px;margin-bottom:30px;font-family:var(--serif)}
+.auth-tabs{display:flex;border:1px solid var(--border2);border-radius:3px;overflow:hidden;background:var(--card);margin-bottom:22px}
+.auth-tabs button{flex:1;padding:12px;border:none;background:none;font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:4px;color:var(--text2);cursor:pointer;transition:all .2s}
+.auth-tabs button.active{background:var(--text);color:var(--bg)}
+.login-card input{width:100%;padding:12px 16px;border:1px solid var(--border2);border-radius:3px;background:var(--card);color:var(--text);font-size:14px;outline:none;margin-bottom:16px;text-align:center;font-family:var(--serif);letter-spacing:1px;transition:border .2s}
+.login-card input:focus{border-color:var(--red)}
+.login-card button.go{width:100%;padding:12px;border:1px solid var(--text);border-radius:3px;background:var(--text);color:var(--bg);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:4px;font-family:var(--serif);transition:all .2s}
+.login-card button.go:hover{background:var(--red);border-color:var(--red);color:#fff}
+.login-card button.go:disabled{opacity:.55;cursor:default}
+.err{color:var(--red);font-size:13px;margin-bottom:12px;display:none;font-family:var(--serif);line-height:1.6}
+.hint{font-size:11px;color:var(--text3);margin-top:16px;font-family:var(--serif);letter-spacing:1px}
+#gateView .gate-icon{font-size:56px;margin-bottom:18px}
+#gateView h1{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:4px;margin-bottom:12px;color:var(--text)}
+#gateView p{font-size:14px;color:var(--text2);line-height:1.9;font-family:var(--serif)}
+/* ===== User bar ===== */
+.userbar{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);max-width:46%}
+.userbar .uemail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--serif)}
+.userbar button{padding:6px 14px;border:1px solid var(--border2);background:var(--card);border-radius:3px;color:var(--text2);font-size:12px;cursor:pointer;font-family:var(--serif);letter-spacing:2px;flex-shrink:0}
+.userbar button:hover{border-color:var(--red);color:var(--red)}
+/* ===== Player ===== */
+#playerView{position:fixed;inset:0;background:#171008;z-index:400;display:none;flex-direction:column}
+.pl-bar{height:54px;display:flex;align-items:center;gap:12px;padding:0 14px;background:#3a2a1a;border-bottom:2px solid #171008;flex-shrink:0}
+.pl-back{width:38px;height:38px;border:1px solid #5a4530;background:none;border-radius:3px;color:#e8ddd0;font-size:18px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.pl-back:hover{border-color:var(--red);color:var(--red)}
+.pl-title{font-family:var(--serif);font-size:17px;font-weight:700;color:#f0ece4;letter-spacing:2px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.pl-brand{font-size:11px;color:#a08868;font-family:var(--serif);letter-spacing:1px;flex-shrink:0}
+#plFrame{flex:1;width:100%;border:0;background:#171008}
+.pl-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:#171008;z-index:5}
+.pl-load .spin{border-color:#4a3828;border-top-color:var(--red)}
+.pl-loadmsg{color:#a08868;font-family:var(--serif);font-size:13px;letter-spacing:2px}
+#plErr{display:none;color:#e0a0a0;font-family:var(--serif);font-size:14px;letter-spacing:1px}
+/* ===== Boot ===== */
+#boot{position:fixed;inset:0;background:rgba(245,240,232,.94);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.spin{width:34px;height:34px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#bootMsg{font-family:var(--serif);font-size:14px;color:var(--text2);letter-spacing:2px}
+/* ===== Footer ===== */
+.footer{text-align:center;padding:24px;color:var(--text3);font-size:11px;font-family:var(--serif);letter-spacing:1px;border-top:1px solid var(--border);margin-top:12px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:768px){
+  .ch-row{grid-template-columns:1fr}
+  .hero h1{font-size:30px;letter-spacing:5px}
+  .tab{padding:12px 16px;font-size:15px}
+  .search-inline{display:none}
+  .pl-brand{display:none}
+  .userbar{max-width:56%}
+}
+</style>
+</head>
+<body>
+
+<!-- App 门禁：仅允许 K7-12 实验室 App 打开 -->
+<div id="gateView">
+  <div>
+    <div class="gate-icon">🔒</div>
+    <h1>请在 App 中打开</h1>
+    <p>本实验库仅支持「K7-12 实验室」App 访问<br>请在平板上打开 K7-12 实验室 App<br><br>未安装？请联系老师获取安装包</p>
+  </div>
+</div>
+
+<!-- 登录 / 注册 -->
+<div id="authView">
+  <div class="login-card">
+    <div class="login-icon">🧪</div>
+    <h1>理化生实验库</h1>
+    <p class="tag2">格物致知 · 明理践行</p>
+    <div class="auth-tabs">
+      <button id="tabLogin" class="active" onclick="setMode('login')">登 录</button>
+      <button id="tabReg" onclick="setMode('reg')">注 册</button>
+    </div>
+    <div class="err" id="authErr"></div>
+    <input type="email" id="email" placeholder="邮箱" autocomplete="email">
+    <input type="password" id="pwd" placeholder="密码（至少 6 位）" autocomplete="current-password">
+    <div id="cpwRow" style="display:none"><input type="password" id="pwd2" placeholder="再次输入密码" autocomplete="new-password"></div>
+    <button class="go" id="btnAuth" onclick="doAuth()">进 入</button>
+    <p class="hint">一个账号只能在一台设备上使用 · 请妥善保管密码</p>
+  </div>
+</div>
+
+<!-- 实验库主界面 -->
+<div id="libView" style="display:none">
+  <div class="hero">
+    <div class="userbar"><span class="uemail" id="userEmail"></span><button onclick="doLogout()">退 出</button></div>
+    <div class="title-row">
+      <img class="logo-img" src="logo.png" alt="logo">
+      <div>
+        <h1>理化生实验库</h1>
+        <div class="tagline">格物致知 · 明理践行</div>
+      </div>
+    </div>
+    <div class="divider"><span class="line"></span><span class="dot2"></span><span class="line"></span></div>
+  </div>
+
+  <div class="tabbar" id="tabbar"></div>
+
+  <div class="container">
+    <div class="ch-row" id="chContainer"></div>
+  </div>
+
+  <div class="footer">K7-12 自研实验室 · Three.js WebGL · 148 门 3D 互动实验</div>
+</div>
+
+<!-- 实验播放器 -->
+<div id="playerView">
+  <div class="pl-bar">
+    <button class="pl-back" onclick="closeLab()">←</button>
+    <div class="pl-title" id="plTitle"></div>
+    <div class="pl-brand">K7-12 · 3D 实验室</div>
+  </div>
+  <iframe id="plFrame" title="lab"></iframe>
+  <div class="pl-load" id="plLoad">
+    <div class="spin"></div>
+    <div class="pl-loadmsg" id="plMsg">正在解密并加载实验…</div>
+    <div id="plErr">加载失败，请检查网络后重试</div>
+  </div>
+</div>
+
+<!-- 启动遮罩 -->
+<div id="boot">
+  <div class="spin"></div>
+  <div id="bootMsg">正在启动…</div>
+</div>
+
+<script src="lab_data.js"></script>
+<script>
+/* ================= 基础 ================= */
+const SUPA_URL='https://suuzmsxyhaarlzghumws.supabase.co';
+const SUPA_ANON='sb_publishable_PwZx9H07uw3nn6MszayGug_EC5I2Ujo';
+const IS_APP=/K712LabApp/.test(navigator.userAgent);
+const $=id=>document.getElementById(id);
+
+function show(id){['gateView','authView','libView'].forEach(x=>$(x).style.display=x===id?'flex':'none');}
+function authErr(m){const e=$('authErr');e.textContent=m||'';e.style.display=m?'block':'none';}
+function bootMsg(m){$('bootMsg').textContent=m;}
+
+/* ================= 会话（极简 Supabase Auth 客户端） ================= */
+const S={
+  tok:null,ref:null,exp:0,user:null,
+  save(){localStorage.setItem('k712_s',JSON.stringify({t:this.tok,r:this.ref,e:this.exp,u:this.user}));},
+  load(){try{const d=JSON.parse(localStorage.getItem('k712_s')||'null');if(d&&d.t){this.tok=d.t;this.ref=d.r;this.exp=d.e||0;this.user=d.u||null;}}catch(e){}},
+  clear(){this.tok=null;this.ref=null;this.user=null;this.exp=0;localStorage.removeItem('k712_s');},
+  hdr(a){return{'apikey':SUPA_ANON,'Authorization':'Bearer '+((a&&this.tok)?this.tok:SUPA_ANON),'Content-Type':'application/json'};},
+  async call(path,body,method,needAuth){
+    let res,tries=0;
+    while(true){
+      try{res=await fetch(SUPA_URL+path,{method:method||'POST',headers:this.hdr(needAuth!==false),body:body===undefined?undefined:JSON.stringify(body)});break;}
+      catch(e){if(++tries<3){await new Promise(r=>setTimeout(r,900));continue;}return{ok:false,net:true,status:0,j:null};}
+    }
+    let j=null;try{j=await res.json();}catch(e){}
+    return{ok:res.ok,status:res.status,net:false,j};
+  },
+  async refreshTok(){
+    if(!this.ref)return false;
+    const r=await this.call('/auth/v1/token?grant_type=refresh_token',{refresh_token:this.ref},'POST',false);
+    if(r.ok&&r.j&&r.j.access_token){
+      this.tok=r.j.access_token;this.ref=r.j.refresh_token;this.exp=Date.now()+((r.j.expires_in||3600))*1000;
+      if(r.j.user)this.user={id:r.j.user.id,email:r.j.user.email};
+      this.save();return true;
+    }
+    return false;
+  }
+};
+
+/* ================= 设备 ID ================= */
+function getDeviceId(){
+  let d=localStorage.getItem('k712_did');
+  if(!d){
+    const a=crypto.getRandomValues(new Uint8Array(16));
+    d='d-'+[...a].map(b=>b.toString(16).padStart(2,'0')).join('');
+    localStorage.setItem('k712_did',d);
+  }
+  return d;
+}
+
+/* ================= 设备绑定检查 ================= */
+async function bindOrCheck(){
+  const did=getDeviceId(),uid=S.user.id;
+  for(let a=0;a<2;a++){
+    const r=await S.call('/rest/v1/devices?select=device_id&user_id=eq.'+uid,null,'GET',true);
+    if(r.net)return{net:true};
+    if(!r.ok)return{};
+    const rows=r.j||[];
+    if(rows.length===0){
+      const ins=await S.call('/rest/v1/devices',{user_id:uid,device_id:did},'POST',true);
+      if(ins.ok)return{ok:true};
+      const m=(ins.j&&ins.j.message)||'';
+      if(/ANOTHER_DEVICE/.test(m))return{mismatch:true};
+      if((ins.j&&ins.j.code)!=='23505')return{};
+      continue;
+    }
+    if(rows[0].device_id!==did)return{mismatch:true};
+    return{ok:true};
+  }
+  return{};
+}
+
+/* ================= 内容密钥 ================= */
+let LAB_SECRET=null,KEYBYTES=null;
+async function fetchKey(){
+  if(KEYBYTES)return true;
+  const r=await S.call('/rest/v1/app_config?select=value&key=eq.lab_key',null,'GET',true);
+  if(!r.ok||!r.j||!r.j.length)return false;
+  LAB_SECRET=r.j[0].value;
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(LAB_SECRET));
+  KEYBYTES=new Uint8Array(buf);
+  return true;
+}
+
+/* ================= 登录 / 注册 ================= */
+let mode='login';
+function setMode(m){
+  mode=m;
+  $('tabLogin').classList.toggle('active',m==='login');
+  $('tabReg').classList.toggle('active',m==='reg');
+  $('cpwRow').style.display=m==='reg'?'block':'none';
+  $('btnAuth').textContent=m==='login'?'进 入':'注 册';
+  authErr('');
+}
+function authBusy(b){$('btnAuth').disabled=b;if(b)$('btnAuth').textContent='请稍候…';else $('btnAuth').textContent=mode==='login'?'进 入':'注 册';}
+
+async function doAuth(){
+  const email=$('email').value.trim().toLowerCase();
+  const pw=$('pwd').value;
+  if(!email||!pw){authErr('请输入邮箱和密码');return;}
+  if(pw.length<6){authErr('密码至少 6 位');return;}
+  if(mode==='reg'&&pw!==$('pwd2').value){authErr('两次输入的密码不一致');return;}
+  authErr('');authBusy(true);
+  try{
+    if(mode==='reg'){
+      const r=await S.call('/auth/v1/signup',{email,password:pw},'POST',false);
+      if(r.net){authErr('网络连接失败，请重试');return;}
+      if(!r.ok){
+        const m=(r.j&&(r.j.msg||r.j.message))||'';const c=(r.j&&(r.j.code||r.j.error_code))||'';
+        if(/already/i.test(m)||c==='user_already_exists')authErr('该邮箱已注册，请直接登录');
+        else if(r.status===429)authErr('尝试过于频繁，请稍后再试');
+        else authErr('注册失败：'+(m||('HTTP '+r.status)));
+        return;
+      }
+      if(r.j&&r.j.access_token){
+        S.tok=r.j.access_token;S.ref=r.j.refresh_token;S.exp=Date.now()+((r.j.expires_in||3600))*1000;
+        S.user=r.j.user?{id:r.j.user.id,email:r.j.user.email}:{id:null,email:email};
+        S.save();await afterAuth();
+      }else{
+        setMode('login');authErr('注册成功，请登录');
+      }
+      return;
+    }
+    const r=await S.call('/auth/v1/token?grant_type=password',{email,password:pw},'POST',false);
+    if(r.net){authErr('网络连接失败，请重试');return;}
+    if(!r.ok){
+      const m=(r.j&&(r.j.msg||r.j.message))||'';
+      if(r.status===400)authErr('邮箱或密码有误');
+      else if(r.status===429)authErr('尝试过于频繁，请稍后再试');
+      else if(/confirm/i.test(m))authErr('请先点击确认邮件中的链接，再登录');
+      else authErr('登录失败：'+(m||('HTTP '+r.status)));
+      return;
+    }
+    S.tok=r.j.access_token;S.ref=r.j.refresh_token;S.exp=Date.now()+((r.j.expires_in||3600))*1000;
+    S.user=r.j.user?{id:r.j.user.id,email:r.j.user.email}:{id:null,email:email};
+    S.save();
+    await afterAuth();
+  }finally{authBusy(false);}
+}
+
+async function afterAuth(){
+  show('authView');
+  $('boot').style.display='flex';
+  bootMsg('正在校验设备绑定…');
+  const d=await bindOrCheck();
+  if(!d.ok){
+    $('boot').style.display='none';
+    if(d.mismatch){S.clear();authErr('该账号已绑定其他设备。如需换绑请联系老师。');}
+    else if(d.net){authErr('网络不稳定，请重试');}
+    else{S.clear();authErr('设备校验失败，请重新登录');}
+    return;
+  }
+  bootMsg('正在获取内容密钥…');
+  const k=await fetchKey();
+  $('boot').style.display='none';
+  if(!k){authErr('内容密钥获取失败，请重试');return;}
+  enterLib();
+}
+
+function enterLib(){
+  show('libView');
+  $('userEmail').textContent=(S.user&&S.user.email)||'';
+  if(!window.__libInit){initTabs();window.__libInit=true;}
+}
+
+async function doLogout(){
+  try{await S.call('/auth/v1/logout',{},'POST',true);}catch(e){}
+  S.clear();KEYBYTES=null;LAB_SECRET=null;closeLab();
+  setMode('login');show('authView');authErr('');
+}
+
+/* ================= 启动流程 ================= */
+async function boot(){
+  if(!IS_APP){show('gateView');return;}
+  S.load();
+  if(!S.tok||!S.user){setMode('login');show('authView');return;}
+  $('boot').style.display='flex';bootMsg('正在恢复登录…');
+  if(Date.now()>S.exp-60000){
+    const ok=await S.refreshTok();
+    if(!ok){$('boot').style.display='none';S.clear();setMode('login');show('authView');return;}
+  }
+  $('boot').style.display='none';
+  await afterAuth();
+}
+
+/* ================= 实验播放器（解密） ================= */
+let curSlug=null;
+async function openLab(slug,title){
+  if(!KEYBYTES)return;
+  curSlug=slug;
+  $('plTitle').textContent=title;
+  $('plErr').style.display='none';
+  $('plMsg').textContent='正在解密并加载实验…';
+  $('plLoad').style.display='flex';
+  $('playerView').style.display='flex';
+  document.body.style.overflow='hidden';
+  try{
+    const r=await fetch('labs/'+slug+'.txt');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const b64=(await r.text()).trim();
+    const raw=atob(b64);
+    const out=new Uint8Array(raw.length);
+    for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^KEYBYTES[i%KEYBYTES.length];
+    const html=new TextDecoder('utf-8').decode(out);
+    if(curSlug!==slug)return;
+    $('plFrame').srcdoc=html;
+  }catch(e){
+    if(curSlug!==slug)return;
+    $('plMsg').textContent='';
+    $('plErr').style.display='block';
+    return;
+  }
+}
+function closeLab(){
+  curSlug=null;
+  $('playerView').style.display='none';
+  $('plFrame').srcdoc='';
+  $('plLoad').style.display='none';
+  document.body.style.overflow='';
+}
+
+/* ================= 实验库渲染 ================= */
+const CHAPTER_GROUP = {
+  /* 物理 */
+  "力学 受力分解":["Ⅰ","力学"], "力学":["Ⅰ","力学"], "牛顿定律":["Ⅰ","力学"],
+  "抛体":["Ⅰ","力学"], "圆周运动":["Ⅰ","力学"], "天体":["Ⅰ","力学"],
+  "动量":["Ⅰ","力学"], "功和能":["Ⅰ","力学"], "简单机械":["Ⅰ","力学"],
+  "简谐运动":["Ⅱ","振动与波"], "机械振动":["Ⅱ","振动与波"],
+  "机械波":["Ⅱ","振动与波"], "波动":["Ⅱ","振动与波"], "声学":["Ⅱ","振动与波"],
+  "热学":["Ⅲ","热学"], "气体定律":["Ⅲ","热学"], "分子动理论":["Ⅲ","热学"], "流体":["Ⅲ","热学"],
+  "静电场":["Ⅳ","电磁学"], "电路":["Ⅳ","电磁学"], "电学实验":["Ⅳ","电磁学"],
+  "电学":["Ⅳ","电磁学"], "电磁":["Ⅳ","电磁学"], "磁场":["Ⅳ","电磁学"],
+  "电磁感应":["Ⅳ","电磁学"], "交流电":["Ⅳ","电磁学"],
+  "光学":["Ⅴ","光学"], 
+  "近代物理":["Ⅵ","近代物理"], "量子":["Ⅵ","近代物理"], "原子核":["Ⅵ","近代物理"],
+  /* 数学 */
+  "集合":["Ⅰ","代数"], "逻辑":["Ⅰ","代数"], "函数":["Ⅰ","代数"],
+  "函数性质":["Ⅰ","代数"], "指数对数":["Ⅰ","代数"],
+  "三角函数":["Ⅱ","三角"], "三角":["Ⅱ","三角"], "图像变换":["Ⅱ","三角"],
+  "平面向量":["Ⅲ","向量与几何"], "三角恒等变换":["Ⅲ","向量与几何"], "解三角形":["Ⅲ","向量与几何"],
+  "数列":["Ⅳ","数列与不等式"], "数列求和":["Ⅳ","数列与不等式"],
+  "不等式":["Ⅳ","数列与不等式"], "基本不等式":["Ⅳ","数列与不等式"], "线性规划":["Ⅳ","数列与不等式"],
+  "立体几何":["Ⅴ","几何"], "空间角":["Ⅴ","几何"], "折叠与展开":["Ⅴ","几何"],
+  "旋转体":["Ⅴ","几何"], "祖暅原理":["Ⅴ","几何"], "外接球与内切球":["Ⅴ","几何"],
+  "正方体的截面":["Ⅴ","几何"], "三视图与投影":["Ⅴ","几何"], "圆锥的侧面展开":["Ⅴ","几何"],
+  "解析几何":["Ⅵ","解析与概率"], "圆锥曲线":["Ⅵ","解析与概率"], "圆的方程":["Ⅵ","解析与概率"],
+  "圆的方程与位置关系":["Ⅵ","解析与概率"], "焦点与准线":["Ⅵ","解析与概率"],
+  "圆锥曲线的光学性质":["Ⅵ","解析与概率"], "坐标系变换":["Ⅵ","解析与概率"],
+  "导数":["Ⅶ","微积分"], "导数与切线":["Ⅶ","微积分"], "单调性与极值":["Ⅶ","微积分"],
+  "微分中值定理":["Ⅶ","微积分"], "定积分":["Ⅶ","微积分"],
+  "定积分求旋转体体积":["Ⅶ","微积分"], "函数零点":["Ⅶ","微积分"],
+  "概率统计":["Ⅷ","概率与统计"], "条件概率":["Ⅷ","概率与统计"],
+  "二项分布与超几何分布":["Ⅷ","概率与统计"], "几何概型":["Ⅷ","概率与统计"],
+  "期望与方差":["Ⅷ","概率与统计"], "百分位数与箱线图":["Ⅷ","概率与统计"],
+  "抽样与估计":["Ⅷ","概率与统计"], "线性回归":["Ⅷ","概率与统计"],
+  "蒲丰投针":["Ⅷ","概率与统计"], "正态分布":["Ⅷ","概率与统计"], "独立性检验":["Ⅷ","概率与统计"],
+  "方差与标准差":["Ⅷ","概率与统计"], "排列组合":["Ⅷ","概率与统计"],
+  "计数原理":["Ⅷ","概率与统计"], "二项式定理":["Ⅷ","概率与统计"],
+  "斐波那契与黄金分割":["Ⅷ","概率与统计"],
+  "复数":["Ⅸ","代数补"], "矩阵与变换":["Ⅸ","代数补"], "极坐标参数":["Ⅸ","代数补"], "坐标变换":["Ⅸ","代数补"],
+  /* 化学 */
+  "物质的量":["Ⅰ","基本概念"], "气体摩尔体积":["Ⅰ","基本概念"], "物质的量浓度":["Ⅰ","基本概念"],
+  "物质结构":["Ⅱ","物质结构"], "原子轨道与电子云":["Ⅱ","物质结构"],
+  "元素周期表":["Ⅱ","物质结构"], "分子结构 VSEPR":["Ⅱ","物质结构"],
+  "化学键的形成":["Ⅱ","物质结构"], "分子构型 VSEPR":["Ⅱ","物质结构"],
+  "氧化还原":["Ⅲ","反应原理"], "离子反应与导电":["Ⅲ","反应原理"],
+  "化学反应能量":["Ⅲ","反应原理"], "反应热与能垒":["Ⅲ","反应原理"],
+  "化学平衡的移动":["Ⅲ","反应原理"], "水解":["Ⅲ","反应原理"],
+  "化学反应速率":["Ⅲ","反应原理"], "动力学":["Ⅲ","反应原理"],
+  "溶液":["Ⅳ","溶液"], "溶液与溶解度":["Ⅳ","溶液"],
+  "酸碱中和滴定":["Ⅳ","溶液"], "溶液反应":["Ⅳ","溶液"],
+  "有机化学":["Ⅴ","有机化学"], "有机分子模型":["Ⅴ","有机化学"],
+  "同分异构体":["Ⅴ","有机化学"], "位置异构与官能团":["Ⅴ","有机化学"],
+  "酯化反应":["Ⅴ","有机化学"],
+  "电化学":["Ⅵ","电化学"], "原电池与电解池":["Ⅵ","电化学"],
+  /* 生物 */
+  "细胞":["Ⅰ","细胞"], "细胞的结构":["Ⅰ","细胞"],
+  "细胞膜的流动镶嵌模型":["Ⅰ","细胞"], "细胞分裂":["Ⅰ","细胞"],
+  "细胞膜":["Ⅰ","细胞"], "物质跨膜运输":["Ⅰ","细胞"],
+  "代谢":["Ⅱ","代谢"], "光合与呼吸":["Ⅱ","代谢"], "酶的特性":["Ⅱ","代谢"],
+  "遗传物质":["Ⅲ","遗传"], "DNA 双螺旋":["Ⅲ","遗传"],
+  "遗传规律":["Ⅲ","遗传"], "孟德尔遗传":["Ⅲ","遗传"],
+  "基因表达":["Ⅳ","基因"], "转录与翻译":["Ⅳ","基因"],
+  "内环境":["Ⅴ","稳态"], "血糖的调节":["Ⅴ","稳态"],
+  "神经调节":["Ⅵ","调节"], "神经元与突触":["Ⅵ","调节"], "反射弧":["Ⅵ","调节"],
+  "循环系统":["Ⅶ","系统"], "血液循环":["Ⅶ","系统"],
+  "呼吸":["Ⅶ","系统"], "呼吸运动":["Ⅶ","系统"], "泌尿":["Ⅶ","系统"], "尿的形成":["Ⅶ","系统"],
+  "生态系统":["Ⅷ","生态"], "生态系统的能量流动":["Ⅷ","生态"],
+  "进化":["Ⅸ","进化"], "自然选择":["Ⅸ","进化"],
+};
+function getGroups(subject){
+  if(!LAB_DATA[subject])return[];
+  const groups={};const order=[];
+  for(const[ch,items]of Object.entries(LAB_DATA[subject])){
+    const key=CHAPTER_GROUP[ch]?CHAPTER_GROUP[ch][0]:"";
+    const name=CHAPTER_GROUP[ch]?CHAPTER_GROUP[ch][1]:ch;
+    if(!groups[key]){groups[key]={name,items:[],chapters:[ch]};order.push(key);}
+    groups[key].items.push(...items.map(x=>Object.assign({},x,{chapter:ch})));
+    groups[key].chapters.push(ch);
+  }
+  return order.map(k=>({num:k,name:groups[k].name,items:groups[k].items,chapters:[...new Set(groups[k].chapters)]}));
+}
+function initTabs(){
+  const tabbar=$("tabbar");
+  tabbar.innerHTML="";
+  for(const s of Object.keys(LAB_DATA)){
+    const t=document.createElement("button");
+    t.className="tab";t.textContent=s;
+    t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");render(s);};
+    tabbar.appendChild(t);
+  }
+  const searchWrap=document.createElement("div");
+  searchWrap.className="search-inline";
+  searchWrap.innerHTML='<span class="icon">🔍</span><input type="text" id="search" placeholder="搜索实验名称或章节" oninput="renderSearch()">';
+  tabbar.appendChild(searchWrap);
+  if(tabbar.firstChild)tabbar.firstChild.click();
+}
+let activeSubject="";
+function renderSearch(){render(activeSubject);}
+function render(subject){
+  activeSubject=subject;
+  const q=(document.getElementById("search")&&document.getElementById("search").value.toLowerCase())||"";
+  const container=document.getElementById("chContainer");
+  container.innerHTML="";
+  if(!subject||!LAB_DATA[subject])return;
+  const groups=getGroups(subject);
+  let cardIdx=0;
+  for(const g of groups){
+    const filtered=g.items.filter(l=>!q||l.title.toLowerCase().includes(q)||g.name.toLowerCase().includes(q)||(l.chapter||"").toLowerCase().includes(q));
+    if(!filtered.length)continue;
+    const card=document.createElement("div");
+    card.className="ch-card";
+    card.style.animationDelay=(cardIdx%9)*0.04+"s";
+    if(cardIdx%4===1)card.classList.add("dark");
+    if(cardIdx%4===3)card.classList.add("red");
+    card.innerHTML='<div class="ch-head"><div class="ch-num">'+g.num+'</div><div class="ch-name">'+g.name+'</div><div class="ch-count">'+filtered.length+' 个实验</div></div>';
+    const itemsDiv=document.createElement("div");
+    itemsDiv.className="lab-items";
+    filtered.forEach(l=>{
+      const d=document.createElement("div");
+      d.className="lab-item";
+      d.innerHTML='<span class="lab-bullet"></span><span class="lab-title">'+l.title+'</span><span class="grade-tag">'+(l.chapter||"")+'</span><span class="lab-arrow">→</span>';
+      d.onclick=()=>openLab(l.slug,l.title);
+      itemsDiv.appendChild(d);
+    });
+    card.appendChild(itemsDiv);
+    container.appendChild(card);
+    cardIdx++;
+  }
+}
+
+/* ================= 事件绑定 & 启动 ================= */
+$('plFrame').addEventListener('load',()=>{$('plLoad').style.display='none';});
+['email','pwd','pwd2'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();}));
+boot();
+</script>
+</body>
+</html>
