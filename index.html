@@ -511,7 +511,13 @@ async function openLab(slug,title){
       +'body:not(.k712-topshow) #top,body:not(.k712-topshow) #steps{display:none!important}'
       +':root{--panelw-r:264px!important}}</style>'
       +'<script>(function(){var t=setInterval(function(){if(window.__lab&&window.__lab.hud){clearInterval(t);'
-      +'try{if(window.matchMedia("(max-width:899px)").matches)window.__lab.hud.fold("L",true);}catch(e){}}},200);'
+      +'try{var d=document,hud=window.__lab.hud;'
+      +'if(window.matchMedia("(max-width:899px)").matches)hud.fold("L",true);'
+      +'function on(id,fn){var el=d.getElementById(id);if(el&&!el.__k712f){el.addEventListener("click",fn);el.__k712f=1;}}'
+      +'on("foldL",function(){hud.fold("L",!hud.collapsed.L);});'
+      +'on("foldR",function(){hud.fold("R",!hud.collapsed.R);});'
+      +'on("tabL",function(){hud.fold("L",false);});'
+      +'on("tabR",function(){hud.fold("R",false);})}catch(e){}}},200);'
       +'setTimeout(function(){clearInterval(t);},15000);})();<\/script>';
     const marked=/<head[^>]*>/i.test(html)?html.replace(/<head([^>]*)>/i,'<head$1>'+mark):mark+html;
     $('plFrame').srcdoc=marked;
