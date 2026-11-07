@@ -233,7 +233,7 @@ const S={
   async call(path,body,method,needAuth){
     let res,tries=0;
     while(true){
-      try{res=await fetch(SUPA_URL+path,{method:method||'POST',headers:this.hdr(needAuth!==false),body:body===undefined?undefined:JSON.stringify(body)});break;}
+      try{res=await fetch(SUPA_URL+path,{method:method||'POST',headers:this.hdr(needAuth!==false),body:(body===undefined||body===null)?undefined:JSON.stringify(body)});break;}
       catch(e){if(++tries<3){await new Promise(r=>setTimeout(r,900));continue;}return{ok:false,net:true,status:0,j:null};}
     }
     let j=null;try{j=await res.json();}catch(e){}
