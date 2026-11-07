@@ -417,7 +417,11 @@ async function openLab(slug,title){
     for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^KEYBYTES[i%KEYBYTES.length];
     const html=new TextDecoder('utf-8').decode(out);
     if(curSlug!==slug)return;
-    $('plFrame').srcdoc=html;
+    /* 溯源水印：注入账号邮箱+设备指纹+时间，随解密内容一起进 DOM */
+    const lic=((S.user&&S.user.email)||'')+'|'+getDeviceId().slice(0,12)+'|'+new Date().toISOString();
+    const mark='<!-- K712-LICENSE '+lic+' --><span hidden data-k712-lic="'+lic.replace(/"/g,'')+'"></span>';
+    const marked=/<head[^>]*>/i.test(html)?html.replace(/<head([^>]*)>/i,'<head$1>'+mark):mark+html;
+    $('plFrame').srcdoc=marked;
   }catch(e){
     if(curSlug!==slug)return;
     $('plMsg').textContent='';
