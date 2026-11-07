@@ -113,6 +113,9 @@ body.rail-hidden .reopen{display:inline-flex}
 .pl-back:hover{border-color:var(--red);color:var(--red)}
 .pl-title{font-family:var(--serif);font-size:17px;font-weight:700;color:#f0ece4;letter-spacing:2px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
 .pl-brand{font-size:11px;color:#a08868;font-family:var(--serif);letter-spacing:1px;flex-shrink:0}
+.pl-top{display:none;width:34px;height:34px;border:1px solid #5a4530;background:none;border-radius:2px;color:#e8ddd0;font-size:15px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.pl-top:hover,.pl-top.on{border-color:var(--red);color:var(--red)}
+@media (max-width:899px){.pl-top{display:grid;place-items:center}.pl-brand{display:none}}
 #plFrame{flex:1;width:100%;border:0;background:#171008}
 .pl-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:#171008;z-index:5}
 .pl-load .spin{border-color:#4a3828;border-top-color:var(--red)}
@@ -238,6 +241,7 @@ body.rail-hidden .reopen{display:inline-flex}
   <div class="pl-bar">
     <button class="pl-back" onclick="closeLab()">←</button>
     <div class="pl-title" id="plTitle"></div>
+    <button class="pl-top" id="plTop" onclick="toggleTop()" title="顶栏与步骤条">☰</button>
     <div class="pl-brand">K7-12 · 3D 实验室</div>
   </div>
   <iframe id="plFrame" title="lab"></iframe>
@@ -487,6 +491,7 @@ async function openLab(slug,title){
   $('plTitle').textContent=title;
   $('plErr').style.display='none';
   $('plMsg').textContent='正在加载实验';
+  $('plTop').classList.remove('on');
   $('plLoad').style.display='flex';
   $('playerView').style.display='flex';
   document.body.style.overflow='hidden';
@@ -499,9 +504,15 @@ async function openLab(slug,title){
     for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^KEYBYTES[i%KEYBYTES.length];
     const html=new TextDecoder('utf-8').decode(out);
     if(curSlug!==slug)return;
-    /* 溯源水印：设备码 + 时间戳，随实验内容一起进 DOM */
+    /* 溯源水印 + 窄屏适配（隐藏顶栏/步骤条可由播放器 ☰ 唤回；自动收起本步面板；中控台收窄） */
     const lic=((BOOT&&BOOT.deviceCode)||'')+'|'+new Date().toISOString();
-    const mark='<!-- K712-LICENSE '+lic+' --><span hidden data-k712-lic="'+lic.replace(/"/g,'')+'"></span>';
+    const mark='<!-- K712-LICENSE '+lic+' --><span hidden data-k712-lic="'+lic.replace(/"/g,'')+'"></span>'
+      +'<style>@media (max-width:899px){body:not(.k712-topshow){--top-h:0px;--steps-h:0px}'
+      +'body:not(.k712-topshow) #top,body:not(.k712-topshow) #steps{display:none!important}'
+      +':root{--panelw-r:264px!important}}</style>'
+      +'<script>(function(){var t=setInterval(function(){if(window.__lab&&window.__lab.hud){clearInterval(t);'
+      +'try{if(window.matchMedia("(max-width:899px)").matches)window.__lab.hud.fold("L",true);}catch(e){}}},200);'
+      +'setTimeout(function(){clearInterval(t);},15000);})();<\/script>';
     const marked=/<head[^>]*>/i.test(html)?html.replace(/<head([^>]*)>/i,'<head$1>'+mark):mark+html;
     $('plFrame').srcdoc=marked;
   }catch(e){
@@ -517,6 +528,10 @@ function closeLab(){
   $('plFrame').srcdoc='';
   $('plLoad').style.display='none';
   document.body.style.overflow='';
+}
+function toggleTop(){
+  const d=$('plFrame').contentDocument;
+  if(d&&d.body){d.body.classList.toggle('k712-topshow');$('plTop').classList.toggle('on');}
 }
 
 /* ================= 事件绑定 & 启动 ================= */
