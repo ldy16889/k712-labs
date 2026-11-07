@@ -19,10 +19,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 
 /* ===== Hero ===== */
 .hero{padding:24px 20px 0;position:relative;background:var(--bg);text-align:center;border-bottom:2px solid var(--text)}
-.hero-stats{display:none}
 .title-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
 .logo-img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(44,38,32,.15))}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
 .hero h1{font-family:var(--serif);font-size:42px;font-weight:900;letter-spacing:8px;color:var(--text);line-height:1.2}
 .tagline{text-align:center;font-size:14px;color:var(--text2);letter-spacing:6px;margin-bottom:18px;font-family:var(--serif)}
 .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
@@ -33,7 +31,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .tab{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:3px;padding:14px 28px;color:var(--text2);cursor:pointer;position:relative;transition:color .2s;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--red);border-bottom-color:var(--red)}
-.tab .dot-ind{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:5px;vertical-align:middle}
 .search-inline{margin-left:auto;display:flex;align-items:center;gap:8px}
 .search-inline input{width:220px;padding:8px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--card);color:var(--text);font-size:13px;outline:none;transition:border .2s;font-family:var(--sans)}
 .search-inline input:focus{border-color:var(--red);width:260px}
@@ -54,7 +51,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .ch-card.red .lab-item{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.85)}
 .ch-card.red .lab-item:hover{background:rgba(255,255,255,.08)}
 .ch-card.red .lab-title{color:#fff}
-/* Chapter header */
 .ch-head{padding:16px 18px 12px;border-bottom:1px solid var(--border)}
 .ch-card.dark .ch-head{border-color:#4a3828}
 .ch-card.red .ch-head{border-color:rgba(255,255,255,.15)}
@@ -63,7 +59,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .ch-card.red .ch-num{color:#ffb3ab}
 .ch-name{font-family:var(--serif);font-size:20px;font-weight:900;letter-spacing:2px;color:var(--text);line-height:1.3}
 .ch-count{font-size:11px;color:var(--text3);margin-top:4px}
-/* Lab items */
 .lab-items{padding:8px 0}
 .lab-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(212,201,181,.3)}
 .lab-item:last-child{border-bottom:none}
@@ -82,16 +77,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .ch-card.red .grade-tag{color:rgba(255,255,255,.5)}
 .lab-arrow{color:var(--text3);font-size:12px;flex-shrink:0;opacity:0;transition:opacity .15s}
 .lab-item:hover .lab-arrow{opacity:1}
-/* ===== Auth / Gate ===== */
+/* ===== 激活 / 门禁 ===== */
 #authView,#gateView{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--bg);position:relative;padding:24px 16px;text-align:center}
 #authView::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
 .login-card{text-align:center;width:min(92vw,380px);position:relative}
 .login-icon{font-size:48px;margin-bottom:16px}
 .login-card h1{font-family:var(--serif);font-size:32px;font-weight:900;letter-spacing:6px;margin-bottom:6px;color:var(--text)}
 .login-card .tag2{font-size:14px;color:var(--text2);letter-spacing:4px;margin-bottom:30px;font-family:var(--serif)}
-.auth-tabs{display:flex;border:1px solid var(--border2);border-radius:3px;overflow:hidden;background:var(--card);margin-bottom:22px}
-.auth-tabs button{flex:1;padding:12px;border:none;background:none;font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:4px;color:var(--text2);cursor:pointer;transition:all .2s}
-.auth-tabs button.active{background:var(--text);color:var(--bg)}
+.devbox{border:1px solid var(--border2);border-radius:3px;background:var(--card);padding:16px 14px;margin-bottom:20px}
+.devlabel{font-size:11px;color:var(--text3);letter-spacing:3px;margin-bottom:8px;font-family:var(--serif)}
+.devcode{font-family:var(--serif);font-size:36px;font-weight:900;letter-spacing:8px;color:var(--red);text-indent:8px}
+.devhint{font-size:11px;color:var(--text3);margin-top:10px;font-family:var(--serif);letter-spacing:1px}
 .login-card input{width:100%;padding:12px 16px;border:1px solid var(--border2);border-radius:3px;background:var(--card);color:var(--text);font-size:14px;outline:none;margin-bottom:16px;text-align:center;font-family:var(--serif);letter-spacing:1px;transition:border .2s}
 .login-card input:focus{border-color:var(--red)}
 .login-card button.go{width:100%;padding:12px;border:1px solid var(--text);border-radius:3px;background:var(--text);color:var(--bg);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:4px;font-family:var(--serif);transition:all .2s}
@@ -102,12 +98,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 #gateView .gate-icon{font-size:56px;margin-bottom:18px}
 #gateView h1{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:4px;margin-bottom:12px;color:var(--text)}
 #gateView p{font-size:14px;color:var(--text2);line-height:1.9;font-family:var(--serif)}
-/* ===== User bar ===== */
+/* ===== 设备栏 ===== */
 .userbar{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);max-width:46%}
 .userbar .uemail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--serif)}
 .userbar button{padding:6px 14px;border:1px solid var(--border2);background:var(--card);border-radius:3px;color:var(--text2);font-size:12px;cursor:pointer;font-family:var(--serif);letter-spacing:2px;flex-shrink:0}
 .userbar button:hover{border-color:var(--red);color:var(--red)}
-/* ===== Player ===== */
+/* ===== 播放器 ===== */
 #playerView{position:fixed;inset:0;background:#171008;z-index:400;display:none;flex-direction:column}
 .pl-bar{height:54px;display:flex;align-items:center;gap:12px;padding:0 14px;background:#3a2a1a;border-bottom:2px solid #171008;flex-shrink:0}
 .pl-back{width:38px;height:38px;border:1px solid #5a4530;background:none;border-radius:3px;color:#e8ddd0;font-size:18px;cursor:pointer;flex-shrink:0;transition:all .2s}
@@ -119,7 +115,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .pl-load .spin{border-color:#4a3828;border-top-color:var(--red)}
 .pl-loadmsg{color:#a08868;font-family:var(--serif);font-size:13px;letter-spacing:2px}
 #plErr{display:none;color:#e0a0a0;font-family:var(--serif);font-size:14px;letter-spacing:1px}
-/* ===== Boot ===== */
+/* ===== 启动遮罩 ===== */
 #boot{position:fixed;inset:0;background:rgba(245,240,232,.94);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .spin{width:34px;height:34px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:sp 1s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -134,6 +130,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
   .search-inline{display:none}
   .pl-brand{display:none}
   .userbar{max-width:56%}
+  .devcode{font-size:30px}
 }
 </style>
 </head>
@@ -148,29 +145,28 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
   </div>
 </div>
 
-<!-- 登录 / 注册 -->
+<!-- 设备激活 -->
 <div id="authView">
   <div class="login-card">
-    <div class="login-icon">🧪</div>
+    <div class="login-icon">🔓</div>
     <h1>理化生实验库</h1>
     <p class="tag2">格物致知 · 明理践行</p>
-    <div class="auth-tabs">
-      <button id="tabLogin" class="active" onclick="setMode('login')">登 录</button>
-      <button id="tabReg" onclick="setMode('reg')">注 册</button>
+    <div class="devbox">
+      <div class="devlabel">本 机 设 备 码</div>
+      <div class="devcode" id="devCode">…</div>
+      <div class="devhint">把设备码发给老师，领取 8 位激活码</div>
     </div>
     <div class="err" id="authErr"></div>
-    <input type="email" id="email" placeholder="邮箱" autocomplete="email">
-    <input type="password" id="pwd" placeholder="密码（至少 6 位）" autocomplete="current-password">
-    <div id="cpwRow" style="display:none"><input type="password" id="pwd2" placeholder="再次输入密码" autocomplete="new-password"></div>
-    <button class="go" id="btnAuth" onclick="doAuth()">进 入</button>
-    <p class="hint">一个账号只能在一台设备上使用 · 请妥善保管密码</p>
+    <input type="text" id="actCode" placeholder="输入 8 位激活码" maxlength="8" autocomplete="off">
+    <button class="go" id="btnAuth" onclick="submitActivation()">激 活</button>
+    <p class="hint">一台设备只需激活一次 · 激活码仅对本机有效</p>
   </div>
 </div>
 
 <!-- 实验库主界面 -->
 <div id="libView" style="display:none">
   <div class="hero">
-    <div class="userbar"><span class="uemail" id="userEmail"></span><button onclick="doLogout()">退 出</button></div>
+    <div class="userbar"><span class="uemail" id="devTag"></span><button onclick="showAbout()">已激活</button></div>
     <div class="title-row">
       <img class="logo-img" src="logo.png" alt="logo">
       <div>
@@ -214,187 +210,64 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 <script src="lab_data.js"></script>
 <script>
 /* ================= 基础 ================= */
-const SUPA_URL='https://suuzmsxyhaarlzghumws.supabase.co';
-const SUPA_ANON='sb_publishable_PwZx9H07uw3nn6MszayGug_EC5I2Ujo';
 const IS_APP=/K712LabApp/.test(navigator.userAgent);
 const $=id=>document.getElementById(id);
-
 function show(id){['gateView','authView','libView'].forEach(x=>$(x).style.display=x===id?'flex':'none');}
 function authErr(m){const e=$('authErr');e.textContent=m||'';e.style.display=m?'block':'none';}
+function authBusy(b){$('btnAuth').disabled=b;if(b)$('btnAuth').textContent='请稍候…';else $('btnAuth').textContent='激 活';}
 function bootMsg(m){$('bootMsg').textContent=m;}
 
-/* ================= 会话（极简 Supabase Auth 客户端） ================= */
-const S={
-  tok:null,ref:null,exp:0,user:null,
-  save(){localStorage.setItem('k712_s',JSON.stringify({t:this.tok,r:this.ref,e:this.exp,u:this.user}));},
-  load(){try{const d=JSON.parse(localStorage.getItem('k712_s')||'null');if(d&&d.t){this.tok=d.t;this.ref=d.r;this.exp=d.e||0;this.user=d.u||null;}}catch(e){}},
-  clear(){this.tok=null;this.ref=null;this.user=null;this.exp=0;localStorage.removeItem('k712_s');},
-  hdr(a){return{'apikey':SUPA_ANON,'Authorization':'Bearer '+((a&&this.tok)?this.tok:SUPA_ANON),'Content-Type':'application/json'};},
-  async call(path,body,method,needAuth){
-    let res,tries=0;
-    while(true){
-      try{res=await fetch(SUPA_URL+path,{method:method||'POST',headers:this.hdr(needAuth!==false),body:(body===undefined||body===null)?undefined:JSON.stringify(body)});break;}
-      catch(e){if(++tries<3){await new Promise(r=>setTimeout(r,900));continue;}return{ok:false,net:true,status:0,j:null};}
-    }
-    let j=null;try{j=await res.json();}catch(e){}
-    return{ok:res.ok,status:res.status,net:false,j};
-  },
-  async refreshTok(){
-    if(!this.ref)return false;
-    const r=await this.call('/auth/v1/token?grant_type=refresh_token',{refresh_token:this.ref},'POST',false);
-    if(r.ok&&r.j&&r.j.access_token){
-      this.tok=r.j.access_token;this.ref=r.j.refresh_token;this.exp=Date.now()+((r.j.expires_in||3600))*1000;
-      if(r.j.user)this.user={id:r.j.user.id,email:r.j.user.email};
-      this.save();return true;
-    }
-    return false;
-  }
-};
-
-/* ================= 设备 ID ================= */
-function getDeviceId(){
-  let d=localStorage.getItem('k712_did');
-  if(!d){
-    const a=crypto.getRandomValues(new Uint8Array(16));
-    d='d-'+[...a].map(b=>b.toString(16).padStart(2,'0')).join('');
-    localStorage.setItem('k712_did',d);
-  }
-  return d;
+/* ================= 与原生壳的握手 ================= */
+let BOOT=null,KEYBYTES=null;
+function waitBoot(maxMs){
+  return new Promise(res=>{
+    if(window.K712_BOOT){res(window.K712_BOOT);return;}
+    const t0=Date.now();
+    const iv=setInterval(()=>{
+      if(window.K712_BOOT){clearInterval(iv);res(window.K712_BOOT);}
+      else if(Date.now()-t0>maxMs){clearInterval(iv);res(null);}
+    },250);
+    window.addEventListener('k712boot',()=>{if(window.K712_BOOT){clearInterval(iv);res(window.K712_BOOT);}},{once:true});
+  });
+}
+async function deriveKey(secret){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(secret));
+  return new Uint8Array(buf);
 }
 
-/* ================= 设备绑定检查 ================= */
-async function bindOrCheck(){
-  const did=getDeviceId(),uid=S.user.id;
-  for(let a=0;a<2;a++){
-    const r=await S.call('/rest/v1/devices?select=device_id&user_id=eq.'+uid,null,'GET',true);
-    if(r.net)return{net:true};
-    if(!r.ok)return{};
-    const rows=r.j||[];
-    if(rows.length===0){
-      const ins=await S.call('/rest/v1/devices',{user_id:uid,device_id:did},'POST',true);
-      if(ins.ok)return{ok:true};
-      const m=(ins.j&&ins.j.message)||'';
-      if(/ANOTHER_DEVICE/.test(m))return{mismatch:true};
-      if((ins.j&&ins.j.code)!=='23505')return{};
-      continue;
-    }
-    if(rows[0].device_id!==did)return{mismatch:true};
-    return{ok:true};
-  }
-  return{};
-}
-
-/* ================= 内容密钥 ================= */
-let LAB_SECRET=null,KEYBYTES=null;
-async function fetchKey(){
-  if(KEYBYTES)return true;
-  const r=await S.call('/rest/v1/app_config?select=value&key=eq.lab_key',null,'GET',true);
-  if(!r.ok||!r.j||!r.j.length)return false;
-  LAB_SECRET=r.j[0].value;
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(LAB_SECRET));
-  KEYBYTES=new Uint8Array(buf);
-  return true;
-}
-
-/* ================= 登录 / 注册 ================= */
-let mode='login';
-function setMode(m){
-  mode=m;
-  $('tabLogin').classList.toggle('active',m==='login');
-  $('tabReg').classList.toggle('active',m==='reg');
-  $('cpwRow').style.display=m==='reg'?'block':'none';
-  $('btnAuth').textContent=m==='login'?'进 入':'注 册';
-  authErr('');
-}
-function authBusy(b){$('btnAuth').disabled=b;if(b)$('btnAuth').textContent='请稍候…';else $('btnAuth').textContent=mode==='login'?'进 入':'注 册';}
-
-async function doAuth(){
-  const email=$('email').value.trim().toLowerCase();
-  const pw=$('pwd').value;
-  if(!email||!pw){authErr('请输入邮箱和密码');return;}
-  if(pw.length<6){authErr('密码至少 6 位');return;}
-  if(mode==='reg'&&pw!==$('pwd2').value){authErr('两次输入的密码不一致');return;}
+/* ================= 激活流程 ================= */
+function submitActivation(){
+  const code=$('actCode').value.trim().toUpperCase();
+  if(!/^[A-Z0-9]{8}$/.test(code)){authErr('激活码为 8 位字母数字');return;}
   authErr('');authBusy(true);
-  try{
-    if(mode==='reg'){
-      const r=await S.call('/auth/v1/signup',{email,password:pw},'POST',false);
-      if(r.net){authErr('网络连接失败，请重试');return;}
-      if(!r.ok){
-        const m=(r.j&&(r.j.msg||r.j.message))||'';const c=(r.j&&(r.j.code||r.j.error_code))||'';
-        if(/already/i.test(m)||c==='user_already_exists')authErr('该邮箱已注册，请直接登录');
-        else if(r.status===429)authErr('尝试过于频繁，请稍后再试');
-        else authErr('注册失败：'+(m||('HTTP '+r.status)));
-        return;
-      }
-      if(r.j&&r.j.access_token){
-        S.tok=r.j.access_token;S.ref=r.j.refresh_token;S.exp=Date.now()+((r.j.expires_in||3600))*1000;
-        S.user=r.j.user?{id:r.j.user.id,email:r.j.user.email}:{id:null,email:email};
-        S.save();await afterAuth();
-      }else{
-        setMode('login');authErr('注册成功，请登录');
-      }
-      return;
-    }
-    const r=await S.call('/auth/v1/token?grant_type=password',{email,password:pw},'POST',false);
-    if(r.net){authErr('网络连接失败，请重试');return;}
-    if(!r.ok){
-      const m=(r.j&&(r.j.msg||r.j.message))||'';
-      if(r.status===400)authErr('邮箱或密码有误');
-      else if(r.status===429)authErr('尝试过于频繁，请稍后再试');
-      else if(/confirm/i.test(m))authErr('请先点击确认邮件中的链接，再登录');
-      else authErr('登录失败：'+(m||('HTTP '+r.status)));
-      return;
-    }
-    S.tok=r.j.access_token;S.ref=r.j.refresh_token;S.exp=Date.now()+((r.j.expires_in||3600))*1000;
-    S.user=r.j.user?{id:r.j.user.id,email:r.j.user.email}:{id:null,email:email};
-    S.save();
-    await afterAuth();
-  }finally{authBusy(false);}
-}
-
-async function afterAuth(){
-  show('authView');
-  $('boot').style.display='flex';
-  bootMsg('正在校验设备绑定…');
-  const d=await bindOrCheck();
-  if(!d.ok){
-    $('boot').style.display='none';
-    if(d.mismatch){S.clear();authErr('该账号已绑定其他设备。如需换绑请联系老师。');}
-    else if(d.net){authErr('网络不稳定，请重试');}
-    else{S.clear();authErr('设备校验失败，请重新登录');}
-    return;
+  window.__k712ActivationResult=function(r){
+    authBusy(false);
+    if(r==='ok'){boot();}
+    else{authErr('激活码无效，请核对后重试');}
+  };
+  if(window.k712auth&&window.k712auth.postMessage){
+    window.k712auth.postMessage(JSON.stringify({type:'activate',code:code}));
+  }else{
+    authBusy(false);authErr('与 App 通信失败，请重启 App');
   }
-  bootMsg('正在获取内容密钥…');
-  const k=await fetchKey();
-  $('boot').style.display='none';
-  if(!k){authErr('内容密钥获取失败，请重试');return;}
-  enterLib();
 }
-
-function enterLib(){
-  show('libView');
-  $('userEmail').textContent=(S.user&&S.user.email)||'';
-  if(!window.__libInit){initTabs();window.__libInit=true;}
-}
-
-async function doLogout(){
-  try{await S.call('/auth/v1/logout',{},'POST',true);}catch(e){}
-  S.clear();KEYBYTES=null;LAB_SECRET=null;closeLab();
-  setMode('login');show('authView');authErr('');
-}
+function showAbout(){alert('本设备已激活 · 设备码 '+(BOOT&&BOOT.deviceCode||'')+'\n激活码与设备一一对应，请勿外传');}
 
 /* ================= 启动流程 ================= */
 async function boot(){
   if(!IS_APP){show('gateView');return;}
-  S.load();
-  if(!S.tok||!S.user){setMode('login');show('authView');return;}
-  $('boot').style.display='flex';bootMsg('正在恢复登录…');
-  if(Date.now()>S.exp-60000){
-    const ok=await S.refreshTok();
-    if(!ok){$('boot').style.display='none';S.clear();setMode('login');show('authView');return;}
+  show('authView');
+  $('devCode').textContent='…';
+  const b=await waitBoot(15000);
+  if(!b){authErr('App 通信失败，请完全关闭后重新打开');$('devCode').textContent='—';return;}
+  BOOT=b;
+  $('devCode').textContent=b.deviceCode||'—';
+  if(b.activated&&b.key){
+    $('boot').style.display='flex';bootMsg('正在解密内容密钥…');
+    KEYBYTES=await deriveKey(b.key);
+    $('boot').style.display='none';
+    enterLib();
   }
-  $('boot').style.display='none';
-  await afterAuth();
 }
 
 /* ================= 实验播放器（解密） ================= */
@@ -417,8 +290,8 @@ async function openLab(slug,title){
     for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^KEYBYTES[i%KEYBYTES.length];
     const html=new TextDecoder('utf-8').decode(out);
     if(curSlug!==slug)return;
-    /* 溯源水印：注入账号邮箱+设备指纹+时间，随解密内容一起进 DOM */
-    const lic=((S.user&&S.user.email)||'')+'|'+getDeviceId().slice(0,12)+'|'+new Date().toISOString();
+    /* 溯源水印：设备码 + 时间戳，随解密内容一起进 DOM */
+    const lic=((BOOT&&BOOT.deviceCode)||'')+'|'+new Date().toISOString();
     const mark='<!-- K712-LICENSE '+lic+' --><span hidden data-k712-lic="'+lic.replace(/"/g,'')+'"></span>';
     const marked=/<head[^>]*>/i.test(html)?html.replace(/<head([^>]*)>/i,'<head$1>'+mark):mark+html;
     $('plFrame').srcdoc=marked;
@@ -570,10 +443,15 @@ function render(subject){
     cardIdx++;
   }
 }
+function enterLib(){
+  show('libView');
+  $('devTag').textContent='设备 '+(BOOT&&BOOT.deviceCode||'');
+  if(!window.__libInit){initTabs();window.__libInit=true;}
+}
 
 /* ================= 事件绑定 & 启动 ================= */
 $('plFrame').addEventListener('load',()=>{$('plLoad').style.display='none';});
-['email','pwd','pwd2'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();}));
+$('actCode').addEventListener('keydown',e=>{if(e.key==='Enter')submitActivation();});
 boot();
 </script>
 </body>
