@@ -5,108 +5,111 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>理化生实验库</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f0e8;--bg2:#ede6d8;--card:#faf6ef;--card-dark:#3a2a1a;--card-red:#c4443c;
-  --border:#d4c9b5;--border2:#c4b8a0;
-  --text:#2c2620;--text2:#6b5d4f;--text3:#a09078;
-  --red:#c4443c;--red-d:#a03328;--blue:#2c5282;--green:#2f855a;--gold:#b7791f;
-  --serif:"STSong","SimSun","Noto Serif SC",serif;
-  --sans:"Microsoft YaHei","PingFang SC",sans-serif;
+  --paper:#f5f0e8;--paper-2:#faf6ef;
+  --ink:#2c2620;--ink-2:#6b5d4f;
+  --border:#d4c9b5;--coffee:#3a2a1a;--red:#c4443c;
+  --serif:"Songti SC","STSong","SimSun","Noto Serif SC","Source Han Serif SC",serif;
+  --sans:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
 }
-body{background:var(--bg);color:var(--text);font-family:var(--sans)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
 ::selection{background:rgba(196,68,60,.15)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.45;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/></filter><rect width='90' height='90' filter='url(%23n)' opacity='0.3'/></svg>")}
+.shell{position:relative;z-index:2;max-width:1200px;margin:0 auto;display:block}
 
-/* ===== Hero ===== */
-.hero{padding:24px 20px 0;position:relative;background:var(--bg);text-align:center;border-bottom:2px solid var(--text)}
-.title-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
-.logo-img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(44,38,32,.15))}
-.hero h1{font-family:var(--serif);font-size:42px;font-weight:900;letter-spacing:8px;color:var(--text);line-height:1.2}
-.tagline{text-align:center;font-size:14px;color:var(--text2);letter-spacing:6px;margin-bottom:18px;font-family:var(--serif)}
-.divider{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
-.divider .line{height:1px;width:80px;background:var(--border2)}
-.divider .dot2{width:5px;height:5px;border-radius:50%;background:var(--red)}
-/* ===== Tab bar ===== */
-.tabbar{display:flex;align-items:center;justify-content:center;gap:0;padding:0 20px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50}
-.tab{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:3px;padding:14px 28px;color:var(--text2);cursor:pointer;position:relative;transition:color .2s;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none}
-.tab:hover{color:var(--text)}
-.tab.active{color:var(--red);border-bottom-color:var(--red)}
-.search-inline{margin-left:auto;display:flex;align-items:center;gap:8px}
-.search-inline input{width:220px;padding:8px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--card);color:var(--text);font-size:16px;outline:none;transition:border .2s;font-family:var(--sans)}
-.search-inline input:focus{border-color:var(--red);width:260px}
-.search-inline .icon{color:var(--text3);font-size:15px}
-/* ===== Container ===== */
-.container{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
-/* ===== Chapter Card ===== */
-.ch-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-bottom:24px}
-.ch-card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:box-shadow .25s,transform .2s;animation:fadeUp .4s ease both}
-.ch-card:hover{box-shadow:0 4px 20px rgba(44,38,32,.12);transform:translateY(-2px)}
-.ch-card.dark{background:var(--card-dark);color:#e8ddd0;border-color:#4a3828}
-.ch-card.dark .ch-name{color:#f0ece4}
-.ch-card.dark .lab-item{border-color:#4a3828;color:#d4c4a8}
-.ch-card.dark .lab-item:hover{background:#4a3520}
-.ch-card.dark .lab-title{color:#e0d0b8}
-.ch-card.red{background:var(--card-red);color:#fff;border-color:var(--card-red)}
-.ch-card.red .ch-name{color:#fff}
-.ch-card.red .lab-item{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.85)}
-.ch-card.red .lab-item:hover{background:rgba(255,255,255,.08)}
-.ch-card.red .lab-title{color:#fff}
-.ch-head{padding:16px 18px 12px;border-bottom:1px solid var(--border)}
-.ch-card.dark .ch-head{border-color:#4a3828}
-.ch-card.red .ch-head{border-color:rgba(255,255,255,.15)}
-.ch-num{font-family:var(--serif);font-size:13px;color:var(--red);letter-spacing:2px;font-weight:700;margin-bottom:4px}
-.ch-card.dark .ch-num{color:#d4a574}
-.ch-card.red .ch-num{color:#ffb3ab}
-.ch-name{font-family:var(--serif);font-size:20px;font-weight:900;letter-spacing:2px;color:var(--text);line-height:1.3}
-.ch-count{font-size:11px;color:var(--text3);margin-top:4px}
-.lab-items{padding:8px 0}
-.lab-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(212,201,181,.3)}
-.lab-item:last-child{border-bottom:none}
-.lab-item:hover{background:rgba(196,68,60,.06)}
-.ch-card.dark .lab-item:hover{background:rgba(255,255,255,.05)}
-.ch-card.red .lab-item:hover{background:rgba(255,255,255,.08)}
-.lab-bullet{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--text3);flex-shrink:0;transition:all .15s}
-.ch-card.dark .lab-bullet{border-color:#8a7048}
-.ch-card.red .lab-bullet{border-color:rgba(255,255,255,.4)}
-.lab-item:hover .lab-bullet{background:var(--red);border-color:var(--red)}
-.lab-title{font-size:14px;color:var(--text);flex:1;line-height:1.4;font-family:var(--serif)}
-.ch-card.dark .lab-title{color:#ccc}
-.ch-card.red .lab-title{color:rgba(255,255,255,.9)}
-.grade-tag{font-size:10px;color:var(--text3);flex-shrink:0;font-family:var(--serif)}
-.ch-card.dark .grade-tag{color:#a08868}
-.ch-card.red .grade-tag{color:rgba(255,255,255,.5)}
-.lab-arrow{color:var(--text3);font-size:12px;flex-shrink:0;opacity:0;transition:opacity .15s}
-.lab-item:hover .lab-arrow{opacity:1}
-/* ===== 激活 / 门禁 ===== */
-#authView,#gateView{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--bg);position:relative;padding:24px 16px;text-align:center}
+/* ===== 门禁 / 激活 ===== */
+#authView,#gateView{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--paper);position:relative;z-index:2;padding:24px 16px;text-align:center}
 #authView::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
 .login-card{text-align:center;width:min(92vw,380px);position:relative}
 .login-icon{font-size:48px;margin-bottom:16px}
-.login-card h1{font-family:var(--serif);font-size:32px;font-weight:900;letter-spacing:6px;margin-bottom:6px;color:var(--text)}
-.login-card .tag2{font-size:14px;color:var(--text2);letter-spacing:4px;margin-bottom:30px;font-family:var(--serif)}
-.devbox{border:1px solid var(--border2);border-radius:3px;background:var(--card);padding:16px 14px;margin-bottom:20px}
-.devlabel{font-size:11px;color:var(--text3);letter-spacing:3px;margin-bottom:8px;font-family:var(--serif)}
+.login-card h1{font-family:var(--serif);font-size:32px;font-weight:900;letter-spacing:6px;margin-bottom:6px;color:var(--ink)}
+.login-card .tag2{font-size:14px;color:var(--ink-2);letter-spacing:4px;margin-bottom:30px;font-family:var(--serif)}
+.devbox{border:1px solid var(--border);border-radius:2px;background:var(--paper-2);padding:16px 14px;margin-bottom:20px}
+.devlabel{font-size:11px;color:var(--ink-2);letter-spacing:3px;margin-bottom:8px;font-family:var(--serif)}
 .devcode{font-family:var(--serif);font-size:36px;font-weight:900;letter-spacing:8px;color:var(--red);text-indent:8px}
-.devhint{font-size:11px;color:var(--text3);margin-top:10px;font-family:var(--serif);letter-spacing:1px}
-.login-card input{width:100%;padding:12px 16px;border:1px solid var(--border2);border-radius:3px;background:var(--card);color:var(--text);font-size:16px;outline:none;margin-bottom:16px;text-align:center;font-family:var(--serif);letter-spacing:1px;transition:border .2s}
+.devhint{font-size:11px;color:var(--ink-2);margin-top:10px;font-family:var(--serif);letter-spacing:1px}
+.login-card input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:2px;background:var(--paper-2);color:var(--ink);font-size:16px;outline:none;margin-bottom:16px;text-align:center;font-family:var(--serif);letter-spacing:1px;transition:border .2s}
 .login-card input:focus{border-color:var(--red)}
-.login-card button.go{width:100%;padding:12px;border:1px solid var(--text);border-radius:3px;background:var(--text);color:var(--bg);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:4px;font-family:var(--serif);transition:all .2s}
+.login-card button.go{width:100%;padding:12px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:4px;font-family:var(--serif);transition:all .2s}
 .login-card button.go:hover{background:var(--red);border-color:var(--red);color:#fff}
 .login-card button.go:disabled{opacity:.55;cursor:default}
 .err{color:var(--red);font-size:13px;margin-bottom:12px;display:none;font-family:var(--serif);line-height:1.6}
-.hint{font-size:11px;color:var(--text3);margin-top:16px;font-family:var(--serif);letter-spacing:1px}
+.hint{font-size:11px;color:var(--ink-2);margin-top:16px;font-family:var(--serif);letter-spacing:1px}
 #gateView .gate-icon{font-size:56px;margin-bottom:18px}
-#gateView h1{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:4px;margin-bottom:12px;color:var(--text)}
-#gateView p{font-size:14px;color:var(--text2);line-height:1.9;font-family:var(--serif)}
-/* ===== 设备栏 ===== */
-.userbar{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);max-width:46%}
-.userbar .uemail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--serif)}
-.userbar button{padding:6px 14px;border:1px solid var(--border2);background:var(--card);border-radius:3px;color:var(--text2);font-size:12px;cursor:pointer;font-family:var(--serif);letter-spacing:2px;flex-shrink:0}
-.userbar button:hover{border-color:var(--red);color:var(--red)}
+#gateView h1{font-family:var(--serif);font-size:26px;font-weight:900;letter-spacing:4px;margin-bottom:12px;color:var(--ink)}
+#gateView p{font-size:14px;color:var(--ink-2);line-height:1.9;font-family:var(--serif)}
+
+/* ===== 左栏 ===== */
+.rail{position:relative;padding:26px 22px 22px;border-bottom:1px solid var(--border);background:var(--paper);min-width:0;transition:padding .24s ease,opacity .18s ease,transform .24s ease}
+.rail-head{display:block;padding-right:42px}
+.rail-close{position:absolute;top:12px;right:14px;z-index:3;width:32px;height:32px;appearance:none;cursor:pointer;display:grid;place-items:center;background:none;border:1px solid var(--border);border-radius:2px;color:var(--ink-2);transition:border-color .2s,color .2s,background .2s}
+.rail-close:hover{color:var(--red);border-color:rgba(196,68,60,.5);background:rgba(196,68,60,.04)}
+.rail-close svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.6;fill:none}
+.reopen{position:fixed;z-index:50;top:14px;left:14px;display:none;align-items:center;gap:8px;appearance:none;cursor:pointer;background:var(--paper-2);border:1px solid var(--border);border-radius:2px;padding:8px 12px 8px 11px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--ink);box-shadow:0 4px 14px rgba(58,42,26,.1);transition:border-color .2s,color .2s}
+.reopen:hover{border-color:rgba(196,68,60,.5);color:var(--red)}
+.reopen svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.6;fill:none}
+body.rail-hidden .reopen{display:inline-flex}
+.rail-top{display:flex;align-items:center;gap:10px}
+.seal{width:34px;height:34px;flex:0 0 auto;background:var(--red);color:#fff8ed;display:grid;place-items:center;font-family:var(--serif);font-size:19px;line-height:1;transform:rotate(-4deg);border-radius:2px;box-shadow:0 1px 0 rgba(58,42,26,.2)}
+.rail-name{font-family:var(--serif);font-size:17px;letter-spacing:.13em;color:var(--ink);margin:0}
+.rail-note{margin:2px 0 0;font-size:11.5px;letter-spacing:.1em;color:var(--ink-2)}
+.subjects{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:16px -22px 0;padding:0 22px 2px}
+.subjects::-webkit-scrollbar{display:none}
+.subj{appearance:none;background:none;border:1px solid transparent;border-radius:2px;display:flex;align-items:baseline;gap:6px;padding:7px 12px;margin:0;cursor:pointer;font-family:var(--serif);font-size:17px;letter-spacing:.1em;color:var(--ink-2);white-space:nowrap;transition:color .2s,border-color .2s,background .2s}
+.subj:hover{color:var(--ink)}
+.subj[aria-current="true"]{color:var(--ink);border-color:rgba(196,68,60,.4);background:rgba(196,68,60,.05)}
+.subj-c{font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:var(--ink-2)}
+.subj[aria-current="true"] .subj-c{color:var(--red)}
+.rail-foot{display:none}
+
+/* ===== 正文叶 ===== */
+.leaf{padding:22px 18px 50px}
+.leaf-head{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.leaf-kicker{margin:0;font-size:12px;letter-spacing:.14em;color:var(--ink-2)}
+.leaf-title{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.15;letter-spacing:.14em;margin:6px 0 0;padding-bottom:12px;position:relative}
+.leaf-title::after{content:"";position:absolute;left:0;bottom:0;width:52px;height:2px;background:var(--red)}
+.leaf-sub{margin:14px 0 0;font-size:13px;color:var(--ink-2);letter-spacing:.02em;max-width:30em}
+.search{position:relative;flex:0 0 auto;width:100%;max-width:260px}
+.search svg{position:absolute;left:0;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--ink-2);opacity:.7;pointer-events:none}
+.search input{width:100%;height:32px;font-family:var(--sans);font-size:16px;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--border);border-radius:0;padding:0 4px 0 21px;transition:border-color .2s}
+.search input:focus{outline:none;border-bottom-color:var(--red)}
+.search input::placeholder{color:#9b8d7c;letter-spacing:.06em}
+
+/* ===== 章节群 ===== */
+.groups{margin-top:6px}
+.group{margin-top:26px}
+.g-head{display:flex;align-items:baseline;gap:10px;padding-bottom:6px}
+.g-num{flex:0 0 auto;font-family:var(--serif);font-size:20px;line-height:1;color:var(--red);letter-spacing:.04em;min-width:26px}
+.g-head h2{margin:0;flex:0 0 auto;font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:.14em;color:var(--ink)}
+.g-sub{flex:0 0 auto;font-size:11.5px;letter-spacing:.1em;color:var(--ink-2)}
+.g-rule{flex:1 1 auto;height:0;border-top:1px solid rgba(212,201,181,.85);transform:translateY(-4px)}
+.g-count{flex:0 0 auto;font-size:11.5px;letter-spacing:.06em;color:var(--ink-2)}
+.rows{display:flex;flex-direction:column}
+.row{appearance:none;background:none;border:0;border-radius:0;display:flex;align-items:baseline;gap:10px;width:100%;padding:12px 2px;margin:0;font-family:var(--sans);font-size:15px;letter-spacing:.03em;color:var(--ink);text-align:left;cursor:pointer;transition:background .18s}
+.row:hover{background:rgba(212,201,181,.22)}
+.row-name{flex:0 1 auto;min-width:0;transition:color .18s}
+.row:hover .row-name{color:var(--red)}
+.leader{flex:1 1 auto;min-width:14px;height:0;border-bottom:1px dotted rgba(107,93,79,.42);transform:translateY(-4px)}
+.row-lvl{flex:0 0 auto;font-size:11.5px;letter-spacing:.14em;color:var(--ink-2)}
+.row-lvl.j{color:var(--red)}
+.row-go{flex:0 0 auto;width:13px;height:13px;stroke:var(--ink-2);stroke-width:1.5;fill:none;opacity:.5;transition:opacity .18s,stroke .18s;align-self:center}
+.row:hover .row-go{opacity:1;stroke:var(--red)}
+
+.empty{margin-top:26px;border:1px dashed var(--border);padding:42px 20px;text-align:center;background:var(--paper-2)}
+.empty p{margin:0 0 4px;font-size:15px}
+.empty span{display:block;font-size:13px;color:var(--ink-2);margin-bottom:16px}
+.empty button{appearance:none;cursor:pointer;background:none;font-family:var(--sans);font-size:14px;color:var(--ink);border:1px solid var(--border);border-radius:2px;padding:7px 16px;transition:border-color .2s,color .2s}
+.empty button:hover{border-color:var(--red);color:var(--red)}
+
+.foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font-size:12px;color:var(--ink-2);letter-spacing:.05em}
+.foot b{color:var(--ink);font-weight:500}
+
 /* ===== 播放器 ===== */
 #playerView{position:fixed;inset:0;background:#171008;z-index:400;display:none;flex-direction:column}
 .pl-bar{height:54px;display:flex;align-items:center;gap:12px;padding:0 14px;background:#3a2a1a;border-bottom:2px solid #171008;flex-shrink:0}
-.pl-back{width:38px;height:38px;border:1px solid #5a4530;background:none;border-radius:3px;color:#e8ddd0;font-size:18px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.pl-back{width:38px;height:38px;border:1px solid #5a4530;background:none;border-radius:2px;color:#e8ddd0;font-size:18px;cursor:pointer;flex-shrink:0;transition:all .2s}
 .pl-back:hover{border-color:var(--red);color:var(--red)}
 .pl-title{font-family:var(--serif);font-size:17px;font-weight:700;color:#f0ece4;letter-spacing:2px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
 .pl-brand{font-size:11px;color:#a08868;font-family:var(--serif);letter-spacing:1px;flex-shrink:0}
@@ -115,26 +118,47 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
 .pl-load .spin{border-color:#4a3828;border-top-color:var(--red)}
 .pl-loadmsg{color:#a08868;font-family:var(--serif);font-size:13px;letter-spacing:2px}
 #plErr{display:none;color:#e0a0a0;font-family:var(--serif);font-size:14px;letter-spacing:1px}
+
 /* ===== 启动遮罩 ===== */
 #boot{position:fixed;inset:0;background:rgba(245,240,232,.94);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.spin{width:34px;height:34px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:sp 1s linear infinite}
+.spin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:sp 1s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-#bootMsg{font-family:var(--serif);font-size:14px;color:var(--text2);letter-spacing:2px}
-/* ===== Footer ===== */
-.footer{text-align:center;padding:24px;color:var(--text3);font-size:11px;font-family:var(--serif);letter-spacing:1px;border-top:1px solid var(--border);margin-top:12px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(max-width:768px){
-  .ch-row{grid-template-columns:1fr}
-  .hero h1{font-size:30px;letter-spacing:5px}
-  .tab{padding:12px 16px;font-size:15px}
-  .search-inline{display:none}
-  .pl-brand{display:none}
-  .userbar{max-width:56%}
-  .devcode{font-size:30px}
+#bootMsg{font-family:var(--serif);font-size:14px;color:var(--ink-2);letter-spacing:2px}
+
+@media (min-width:900px){
+  .shell{display:grid;grid-template-columns:250px minmax(0,1fr);transition:grid-template-columns .26s ease}
+  body.rail-hidden .shell{grid-template-columns:0 minmax(0,1fr)}
+  body.rail-hidden .rail{opacity:0;transform:translateX(-16px);pointer-events:none;padding-left:0;padding-right:0}
+  .rail{position:sticky;top:0;height:100vh;align-self:start;display:flex;flex-direction:column;overflow:hidden;padding:38px 26px 26px;border-right:1px solid var(--border);border-bottom:0}
+  .rail-head{padding-right:40px}
+  .rail-top{flex-direction:column;align-items:flex-start;gap:14px}
+  .rail-name{font-size:19px}
+  .subjects{flex-direction:column;gap:2px;overflow:visible;margin:30px 0 0;padding:0}
+  .subj{padding:10px 10px 10px 14px;width:100%;font-size:21px;letter-spacing:.14em;border:1px solid transparent;justify-content:space-between;position:relative}
+  .subj[aria-current="true"]{background:none;border-color:transparent}
+  .subj[aria-current="true"]::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:var(--red)}
+  .rail-foot{display:block;margin-top:auto;padding-top:18px;border-top:1px solid var(--border);font-size:11.5px;line-height:1.7;color:var(--ink-2);letter-spacing:.04em}
+  .leaf{padding:44px 44px 70px}
+  body.rail-hidden .leaf{padding-top:66px}
+  .leaf-title{font-size:44px}
+  .search{width:230px;max-width:none}
+  .group{margin-top:30px}
+  .row{padding:13px 4px}
+  .row-name{font-size:15.5px}
+}
+@media (max-width:899px){
+  body.rail-hidden .rail{display:none}
+  body.rail-hidden .leaf{padding-top:58px}
+  .reopen{top:10px;left:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .grain{display:none}
 }
 </style>
 </head>
 <body>
+<div class="grain" aria-hidden="true"></div>
 
 <!-- App 门禁：仅允许 K7-12 实验室 App 打开 -->
 <div id="gateView">
@@ -163,27 +187,50 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
   </div>
 </div>
 
-<!-- 实验库主界面 -->
+<!-- 实验库主界面（索引卷式） -->
 <div id="libView" style="display:none">
-  <div class="hero">
-    <div class="userbar"><span class="uemail" id="devTag"></span><button onclick="showAbout()">已激活</button></div>
-    <div class="title-row">
-      <img class="logo-img" src="logo.png" alt="logo">
-      <div>
-        <h1>理化生实验库</h1>
-        <div class="tagline">格物致知 · 明理践行</div>
+  <div class="shell">
+    <aside class="rail" id="rail">
+      <button class="rail-close" id="hideRail" type="button" aria-label="隐藏学科栏">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14"/><path d="M20 12H9"/><path d="M14 7l-5 5 5 5"/></svg>
+      </button>
+      <div class="rail-top">
+        <span class="seal" aria-hidden="true">实</span>
+        <div>
+          <p class="rail-name">K712 实验室</p>
+          <p class="rail-note">中学理科 · 实验索引</p>
+        </div>
       </div>
-    </div>
-    <div class="divider"><span class="line"></span><span class="dot2"></span><span class="line"></span></div>
+      <nav class="subjects" id="subjects" aria-label="选择学科"></nav>
+      <div class="rail-foot" id="railFoot"></div>
+    </aside>
+
+    <main class="leaf">
+      <header class="leaf-head">
+        <div>
+          <p class="leaf-kicker" id="kicker"></p>
+          <h1 class="leaf-title" id="leafTitle"></h1>
+          <p class="leaf-sub" id="leafSub"></p>
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2 20 20"/></svg>
+          <input id="q" type="search" placeholder="在全部学科中检索" aria-label="检索实验">
+        </div>
+      </header>
+
+      <div class="groups" id="groups"></div>
+
+      <div class="foot">
+        <span id="devInfo"></span>
+        <span>K712 · 理化生实验库</span>
+      </div>
+    </main>
   </div>
 
-  <div class="tabbar" id="tabbar"></div>
-
-  <div class="container">
-    <div class="ch-row" id="chContainer"></div>
-  </div>
-
-  <div class="footer">K7-12 自研实验室 · Three.js WebGL · 148 门 3D 互动实验</div>
+  <button class="reopen" id="showRail" type="button" aria-label="展开学科栏">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 5v14"/><path d="M4 12h11"/><path d="M9 7l5 5-5 5"/></svg>
+    <span>学科目录</span>
+  </button>
 </div>
 
 <!-- 实验播放器 -->
@@ -196,7 +243,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans)}
   <iframe id="plFrame" title="lab"></iframe>
   <div class="pl-load" id="plLoad">
     <div class="spin"></div>
-    <div class="pl-loadmsg" id="plMsg">正在解密并加载实验…</div>
+    <div class="pl-loadmsg" id="plMsg">正在加载实验</div>
     <div id="plErr">加载失败，请检查网络后重试</div>
   </div>
 </div>
@@ -251,7 +298,6 @@ function submitActivation(){
     authBusy(false);authErr('与 App 通信失败，请重启 App');
   }
 }
-function showAbout(){alert('本设备已激活 · 设备码 '+(BOOT&&BOOT.deviceCode||'')+'\n激活码与设备一一对应，请勿外传');}
 
 /* ================= 启动流程 ================= */
 async function boot(){
@@ -263,12 +309,175 @@ async function boot(){
   BOOT=b;
   $('devCode').textContent=b.deviceCode||'—';
   if(b.activated&&b.key){
-    $('boot').style.display='flex';bootMsg('正在解密内容密钥…');
+    $('boot').style.display='flex';bootMsg('正在准备实验库…');
     KEYBYTES=await deriveKey(b.key);
     $('boot').style.display='none';
     enterLib();
   }
 }
+
+/* ================= 索引数据（聚合章节大类） ================= */
+const CHAPTER_GROUP = {
+  /* 物理 */
+  "力学 受力分解":["Ⅰ","力学"], "力学":["Ⅰ","力学"], "牛顿定律":["Ⅰ","力学"],
+  "抛体":["Ⅰ","力学"], "圆周运动":["Ⅰ","力学"], "天体":["Ⅰ","力学"],
+  "动量":["Ⅰ","力学"], "功和能":["Ⅰ","力学"], "简单机械":["Ⅰ","力学"],
+  "简谐运动":["Ⅱ","振动与波"], "机械振动":["Ⅱ","振动与波"],
+  "机械波":["Ⅱ","振动与波"], "波动":["Ⅱ","振动与波"], "声学":["Ⅱ","振动与波"],
+  "热学":["Ⅲ","热学"], "气体定律":["Ⅲ","热学"], "分子动理论":["Ⅲ","热学"], "流体":["Ⅲ","热学"],
+  "静电场":["Ⅳ","电磁学"], "电路":["Ⅳ","电磁学"], "电学实验":["Ⅳ","电磁学"],
+  "电学":["Ⅳ","电磁学"], "电磁":["Ⅳ","电磁学"], "磁场":["Ⅳ","电磁学"],
+  "电磁感应":["Ⅳ","电磁学"], "交流电":["Ⅳ","电磁学"],
+  "光学":["Ⅴ","光学"],
+  "近代物理":["Ⅵ","近代物理"], "量子":["Ⅵ","近代物理"], "原子核":["Ⅵ","近代物理"],
+  "振动":["Ⅱ","振动与波"], "二项式":["Ⅷ","概率与统计"], "几何概率":["Ⅷ","概率与统计"],
+  /* 数学 */
+  "集合":["Ⅰ","代数"], "逻辑":["Ⅰ","代数"], "函数":["Ⅰ","代数"],
+  "函数性质":["Ⅰ","代数"], "指数对数":["Ⅰ","代数"],
+  "三角函数":["Ⅱ","三角"], "三角":["Ⅱ","三角"], "图像变换":["Ⅱ","三角"],
+  "平面向量":["Ⅲ","向量与几何"], "三角恒等变换":["Ⅲ","向量与几何"], "解三角形":["Ⅲ","向量与几何"],
+  "数列":["Ⅳ","数列与不等式"], "数列求和":["Ⅳ","数列与不等式"],
+  "不等式":["Ⅳ","数列与不等式"], "基本不等式":["Ⅳ","数列与不等式"], "线性规划":["Ⅳ","数列与不等式"],
+  "立体几何":["Ⅴ","几何"], "空间角":["Ⅴ","几何"], "折叠与展开":["Ⅴ","几何"],
+  "旋转体":["Ⅴ","几何"], "祖暅原理":["Ⅴ","几何"], "外接球与内切球":["Ⅴ","几何"],
+  "正方体的截面":["Ⅴ","几何"], "三视图与投影":["Ⅴ","几何"], "圆锥的侧面展开":["Ⅴ","几何"],
+  "解析几何":["Ⅵ","解析与概率"], "圆锥曲线":["Ⅵ","解析与概率"], "圆的方程":["Ⅵ","解析与概率"],
+  "圆的方程与位置关系":["Ⅵ","解析与概率"], "焦点与准线":["Ⅵ","解析与概率"],
+  "圆锥曲线的光学性质":["Ⅵ","解析与概率"], "坐标系变换":["Ⅵ","解析与概率"],
+  "导数":["Ⅶ","微积分"], "导数与切线":["Ⅶ","微积分"], "单调性与极值":["Ⅶ","微积分"],
+  "微分中值定理":["Ⅶ","微积分"], "定积分":["Ⅶ","微积分"],
+  "定积分求旋转体体积":["Ⅶ","微积分"], "函数零点":["Ⅶ","微积分"],
+  "概率统计":["Ⅷ","概率与统计"], "条件概率":["Ⅷ","概率与统计"], "概率":["Ⅷ","概率与统计"],
+  "二项分布与超几何分布":["Ⅷ","概率与统计"], "几何概型":["Ⅷ","概率与统计"],
+  "期望与方差":["Ⅷ","概率与统计"], "百分位数与箱线图":["Ⅷ","概率与统计"],
+  "抽样与估计":["Ⅷ","概率与统计"], "线性回归":["Ⅷ","概率与统计"],
+  "蒲丰投针":["Ⅷ","概率与统计"], "正态分布":["Ⅷ","概率与统计"], "独立性检验":["Ⅷ","概率与统计"],
+  "方差与标准差":["Ⅷ","概率与统计"], "排列组合":["Ⅷ","概率与统计"],
+  "计数原理":["Ⅷ","概率与统计"], "二项式定理":["Ⅷ","概率与统计"], "统计":["Ⅷ","概率与统计"],
+  "斐波那契与黄金分割":["Ⅷ","概率与统计"], "导数应用":["Ⅶ","微积分"],
+  "复数":["Ⅸ","代数补"], "矩阵":["Ⅸ","代数补"], "矩阵与变换":["Ⅸ","代数补"], "极坐标参数":["Ⅸ","代数补"], "坐标变换":["Ⅸ","代数补"], "极坐标":["Ⅸ","代数补"],
+  /* 化学 */
+  "物质的量":["Ⅰ","基本概念"], "气体摩尔体积":["Ⅰ","基本概念"], "物质的量浓度":["Ⅰ","基本概念"],
+  "物质结构":["Ⅱ","物质结构"], "分子结构":["Ⅱ","物质结构"], "原子轨道与电子云":["Ⅱ","物质结构"],
+  "元素周期表":["Ⅱ","物质结构"], "分子结构 VSEPR":["Ⅱ","物质结构"],
+  "化学键的形成":["Ⅱ","物质结构"], "分子构型 VSEPR":["Ⅱ","物质结构"],
+  "氧化还原":["Ⅲ","反应原理"], "离子反应":["Ⅲ","反应原理"], "离子反应与导电":["Ⅲ","反应原理"],
+  "化学反应能量":["Ⅲ","反应原理"], "反应能量":["Ⅲ","反应原理"], "反应热与能垒":["Ⅲ","反应原理"],
+  "化学平衡":["Ⅲ","反应原理"], "化学平衡的移动":["Ⅲ","反应原理"], "水解":["Ⅲ","反应原理"],
+  "化学反应速率":["Ⅲ","反应原理"], "动力学":["Ⅲ","反应原理"],
+  "溶液":["Ⅳ","溶液"], "溶液与溶解度":["Ⅳ","溶液"],
+  "酸碱中和滴定":["Ⅳ","溶液"], "溶液反应":["Ⅳ","溶液"],
+  "有机化学":["Ⅴ","有机化学"], "有机分子模型":["Ⅴ","有机化学"],
+  "同分异构体":["Ⅴ","有机化学"], "位置异构与官能团":["Ⅴ","有机化学"],
+  "酯化反应":["Ⅴ","有机化学"],
+  "电化学":["Ⅵ","电化学"], "原电池与电解池":["Ⅵ","电化学"],
+  /* 生物 */
+  "细胞":["Ⅰ","细胞"], "细胞的结构":["Ⅰ","细胞"],
+  "细胞膜的流动镶嵌模型":["Ⅰ","细胞"], "细胞分裂":["Ⅰ","细胞"],
+  "细胞膜":["Ⅰ","细胞"], "物质跨膜运输":["Ⅰ","细胞"],
+  "代谢":["Ⅱ","代谢"], "酶":["Ⅱ","代谢"], "光合与呼吸":["Ⅱ","代谢"], "酶的特性":["Ⅱ","代谢"],
+  "遗传物质":["Ⅲ","遗传"], "DNA 双螺旋":["Ⅲ","遗传"],
+  "遗传规律":["Ⅲ","遗传"], "孟德尔遗传":["Ⅲ","遗传"],
+  "基因表达":["Ⅳ","基因"], "转录与翻译":["Ⅳ","基因"],
+  "内环境":["Ⅴ","稳态"], "血糖的调节":["Ⅴ","稳态"],
+  "神经调节":["Ⅵ","调节"], "神经元与突触":["Ⅵ","调节"], "反射弧":["Ⅵ","调节"],
+  "循环系统":["Ⅶ","系统"], "血液循环":["Ⅶ","系统"],
+  "呼吸":["Ⅶ","系统"], "呼吸运动":["Ⅶ","系统"], "泌尿":["Ⅶ","系统"], "尿的形成":["Ⅶ","系统"],
+  "生态系统":["Ⅷ","生态"], "生态系统的能量流动":["Ⅷ","生态"],
+  "进化":["Ⅸ","进化"], "自然选择":["Ⅸ","进化"],
+};
+function buildSubjects(){
+  return Object.keys(LAB_DATA).map(name=>{
+    const chapters={};const order=[];
+    for(const[ch,items]of Object.entries(LAB_DATA[name])){
+      const g=CHAPTER_GROUP[ch]||["",ch];
+      const key=g[0]+"|"+g[1];
+      if(!chapters[key]){chapters[key]={num:g[0],name:g[1],items:[]};order.push(key);}
+      items.forEach(x=>chapters[key].items.push({t:x.title,slug:x.slug,grade:x.grade||"高中"}));
+    }
+    return{name,chapters:order.map(k=>chapters[k])};
+  });
+}
+const SUBJ=buildSubjects();
+const subjCount=s=>s.chapters.reduce((n,c)=>n+c.items.length,0);
+const totalCount=SUBJ.reduce((n,s)=>n+subjCount(s),0);
+
+/* ================= 索引渲染 ================= */
+function rowHTML(it){
+  return '<button type="button" class="row" data-slug="'+it.slug+'" data-title="'+it.t+'">'
+    +'<span class="row-name">'+it.t+'</span>'
+    +'<span class="leader" aria-hidden="true"></span>'
+    +'<span class="row-lvl'+(it.grade==="初中"?" j":"")+'">'+it.grade+'</span>'
+    +'<svg class="row-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8"/><path d="M9.5 8H16v6.5"/></svg>'
+    +'</button>';
+}
+function groupHTML(ch,subLabel){
+  return '<section class="group"><div class="g-head">'
+    +'<span class="g-num">'+ch.num+'</span>'
+    +'<h2>'+ch.name+'</h2>'
+    +(subLabel?'<span class="g-sub">'+subLabel+'</span>':"")
+    +'<span class="g-rule" aria-hidden="true"></span>'
+    +'<span class="g-count">'+ch.items.length+' 项</span>'
+    +'</div><div class="rows">'+ch.items.map(rowHTML).join("")+'</div></section>';
+}
+function renderSubjects(){
+  $('subjects').innerHTML=SUBJ.map((s,i)=>'<button type="button" class="subj" data-subj="'+i+'" aria-current="'+(state.subj===i)+'"><span>'+s.name+'</span><span class="subj-c">'+subjCount(s)+'</span></button>').join("");
+  $('railFoot').innerHTML='共 '+SUBJ.length+' 个学科 · '+totalCount+' 个实验<br>已激活 · 设备 <b>'+(BOOT&&BOOT.deviceCode||'')+'</b>';
+}
+function renderBody(){
+  const q=state.q.trim();
+  if(q){
+    const groups=[];let hit=0;
+    SUBJ.forEach(s=>{
+      s.chapters.forEach(c=>{
+        const items=c.items.filter(it=>it.t.toLowerCase().includes(q.toLowerCase()));
+        if(items.length){hit+=items.length;groups.push(groupHTML(Object.assign({},c,{items:items}),s.name));}
+      });
+    });
+    $('kicker').textContent='全学科检索';
+    $('leafTitle').textContent='检索';
+    $('leafSub').innerHTML='关键词“'+q.replace(/</g,'&lt;')+'” · 命中 <b>'+hit+'</b> 项';
+    $('groups').innerHTML=hit?groups.join(""):
+      '<div class="empty"><p>没有找到“'+q.replace(/</g,'&lt;')+'”</p><span>试试“运动”“电路”“细胞”这类关键词</span><button type="button" data-clear>清空检索</button></div>';
+    return;
+  }
+  const sub=SUBJ[state.subj];
+  $('kicker').textContent=sub.name+' · 实验索引';
+  $('leafTitle').textContent=sub.name;
+  $('leafSub').innerHTML=sub.chapters.length+' 个章节 · '+subjCount(sub)+' 个实验，点击条目开始实验。';
+  $('groups').innerHTML=sub.chapters.map(c=>groupHTML(c,"")).join("");
+}
+function enterLib(){
+  show('libView');
+  $('devInfo').innerHTML='已激活 · 设备 <b>'+(BOOT&&BOOT.deviceCode||'')+'</b>';
+  renderSubjects();renderBody();
+}
+
+/* ================= 索引交互 ================= */
+let state={subj:0,q:""};
+$('subjects').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-subj]');
+  if(!btn)return;
+  state.subj=parseInt(btn.dataset.subj,10);
+  state.q="";$('q').value="";
+  renderSubjects();renderBody();
+});
+$('q').addEventListener('input',e=>{state.q=e.target.value;renderBody();});
+$('groups').addEventListener('click',e=>{
+  const clear=e.target.closest('[data-clear]');
+  if(clear){state.q="";$('q').value="";renderBody();$('q').focus();return;}
+  const row=e.target.closest('[data-slug]');
+  if(!row)return;
+  openLab(row.dataset.slug,row.dataset.title);
+});
+
+/* ---- 左栏收起 / 展开 ---- */
+function setRailHidden(hidden){
+  document.body.classList.toggle('rail-hidden',hidden);
+  try{localStorage.setItem('k712-rail-hidden',hidden?'1':'0');}catch(err){}
+}
+$('hideRail').addEventListener('click',()=>setRailHidden(true));
+$('showRail').addEventListener('click',()=>setRailHidden(false));
 
 /* ================= 实验播放器（解密） ================= */
 let curSlug=null;
@@ -277,7 +486,7 @@ async function openLab(slug,title){
   curSlug=slug;
   $('plTitle').textContent=title;
   $('plErr').style.display='none';
-  $('plMsg').textContent='正在解密并加载实验…';
+  $('plMsg').textContent='正在加载实验';
   $('plLoad').style.display='flex';
   $('playerView').style.display='flex';
   document.body.style.overflow='hidden';
@@ -290,7 +499,7 @@ async function openLab(slug,title){
     for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^KEYBYTES[i%KEYBYTES.length];
     const html=new TextDecoder('utf-8').decode(out);
     if(curSlug!==slug)return;
-    /* 溯源水印：设备码 + 时间戳，随解密内容一起进 DOM */
+    /* 溯源水印：设备码 + 时间戳，随实验内容一起进 DOM */
     const lic=((BOOT&&BOOT.deviceCode)||'')+'|'+new Date().toISOString();
     const mark='<!-- K712-LICENSE '+lic+' --><span hidden data-k712-lic="'+lic.replace(/"/g,'')+'"></span>';
     const marked=/<head[^>]*>/i.test(html)?html.replace(/<head([^>]*)>/i,'<head$1>'+mark):mark+html;
@@ -310,148 +519,10 @@ function closeLab(){
   document.body.style.overflow='';
 }
 
-/* ================= 实验库渲染 ================= */
-const CHAPTER_GROUP = {
-  /* 物理 */
-  "力学 受力分解":["Ⅰ","力学"], "力学":["Ⅰ","力学"], "牛顿定律":["Ⅰ","力学"],
-  "抛体":["Ⅰ","力学"], "圆周运动":["Ⅰ","力学"], "天体":["Ⅰ","力学"],
-  "动量":["Ⅰ","力学"], "功和能":["Ⅰ","力学"], "简单机械":["Ⅰ","力学"],
-  "简谐运动":["Ⅱ","振动与波"], "机械振动":["Ⅱ","振动与波"],
-  "机械波":["Ⅱ","振动与波"], "波动":["Ⅱ","振动与波"], "声学":["Ⅱ","振动与波"],
-  "热学":["Ⅲ","热学"], "气体定律":["Ⅲ","热学"], "分子动理论":["Ⅲ","热学"], "流体":["Ⅲ","热学"],
-  "静电场":["Ⅳ","电磁学"], "电路":["Ⅳ","电磁学"], "电学实验":["Ⅳ","电磁学"],
-  "电学":["Ⅳ","电磁学"], "电磁":["Ⅳ","电磁学"], "磁场":["Ⅳ","电磁学"],
-  "电磁感应":["Ⅳ","电磁学"], "交流电":["Ⅳ","电磁学"],
-  "光学":["Ⅴ","光学"], 
-  "近代物理":["Ⅵ","近代物理"], "量子":["Ⅵ","近代物理"], "原子核":["Ⅵ","近代物理"],
-  "二项式":["Ⅷ","概率与统计"], "几何概率":["Ⅷ","概率与统计"], "概率":["Ⅷ","概率与统计"],
-  "统计":["Ⅷ","概率与统计"], "导数应用":["Ⅶ","微积分"], "振动":["Ⅱ","振动与波"],
-  "极坐标":["Ⅸ","代数补"], "矩阵":["Ⅸ","代数补"], "分子结构":["Ⅱ","物质结构"],
-  "化学平衡":["Ⅲ","反应原理"], "反应能量":["Ⅲ","反应原理"], "离子反应":["Ⅲ","反应原理"], "酶":["Ⅱ","代谢"],
-  /* 数学 */
-  "集合":["Ⅰ","代数"], "逻辑":["Ⅰ","代数"], "函数":["Ⅰ","代数"],
-  "函数性质":["Ⅰ","代数"], "指数对数":["Ⅰ","代数"],
-  "三角函数":["Ⅱ","三角"], "三角":["Ⅱ","三角"], "图像变换":["Ⅱ","三角"],
-  "平面向量":["Ⅲ","向量与几何"], "三角恒等变换":["Ⅲ","向量与几何"], "解三角形":["Ⅲ","向量与几何"],
-  "数列":["Ⅳ","数列与不等式"], "数列求和":["Ⅳ","数列与不等式"],
-  "不等式":["Ⅳ","数列与不等式"], "基本不等式":["Ⅳ","数列与不等式"], "线性规划":["Ⅳ","数列与不等式"],
-  "立体几何":["Ⅴ","几何"], "空间角":["Ⅴ","几何"], "折叠与展开":["Ⅴ","几何"],
-  "旋转体":["Ⅴ","几何"], "祖暅原理":["Ⅴ","几何"], "外接球与内切球":["Ⅴ","几何"],
-  "正方体的截面":["Ⅴ","几何"], "三视图与投影":["Ⅴ","几何"], "圆锥的侧面展开":["Ⅴ","几何"],
-  "解析几何":["Ⅵ","解析与概率"], "圆锥曲线":["Ⅵ","解析与概率"], "圆的方程":["Ⅵ","解析与概率"],
-  "圆的方程与位置关系":["Ⅵ","解析与概率"], "焦点与准线":["Ⅵ","解析与概率"],
-  "圆锥曲线的光学性质":["Ⅵ","解析与概率"], "坐标系变换":["Ⅵ","解析与概率"],
-  "导数":["Ⅶ","微积分"], "导数与切线":["Ⅶ","微积分"], "单调性与极值":["Ⅶ","微积分"],
-  "微分中值定理":["Ⅶ","微积分"], "定积分":["Ⅶ","微积分"],
-  "定积分求旋转体体积":["Ⅶ","微积分"], "函数零点":["Ⅶ","微积分"],
-  "概率统计":["Ⅷ","概率与统计"], "条件概率":["Ⅷ","概率与统计"],
-  "二项分布与超几何分布":["Ⅷ","概率与统计"], "几何概型":["Ⅷ","概率与统计"],
-  "期望与方差":["Ⅷ","概率与统计"], "百分位数与箱线图":["Ⅷ","概率与统计"],
-  "抽样与估计":["Ⅷ","概率与统计"], "线性回归":["Ⅷ","概率与统计"],
-  "蒲丰投针":["Ⅷ","概率与统计"], "正态分布":["Ⅷ","概率与统计"], "独立性检验":["Ⅷ","概率与统计"],
-  "方差与标准差":["Ⅷ","概率与统计"], "排列组合":["Ⅷ","概率与统计"],
-  "计数原理":["Ⅷ","概率与统计"], "二项式定理":["Ⅷ","概率与统计"],
-  "斐波那契与黄金分割":["Ⅷ","概率与统计"],
-  "复数":["Ⅸ","代数补"], "矩阵与变换":["Ⅸ","代数补"], "极坐标参数":["Ⅸ","代数补"], "坐标变换":["Ⅸ","代数补"],
-  /* 化学 */
-  "物质的量":["Ⅰ","基本概念"], "气体摩尔体积":["Ⅰ","基本概念"], "物质的量浓度":["Ⅰ","基本概念"],
-  "物质结构":["Ⅱ","物质结构"], "原子轨道与电子云":["Ⅱ","物质结构"],
-  "元素周期表":["Ⅱ","物质结构"], "分子结构 VSEPR":["Ⅱ","物质结构"],
-  "化学键的形成":["Ⅱ","物质结构"], "分子构型 VSEPR":["Ⅱ","物质结构"],
-  "氧化还原":["Ⅲ","反应原理"], "离子反应与导电":["Ⅲ","反应原理"],
-  "化学反应能量":["Ⅲ","反应原理"], "反应热与能垒":["Ⅲ","反应原理"],
-  "化学平衡的移动":["Ⅲ","反应原理"], "水解":["Ⅲ","反应原理"],
-  "化学反应速率":["Ⅲ","反应原理"], "动力学":["Ⅲ","反应原理"],
-  "溶液":["Ⅳ","溶液"], "溶液与溶解度":["Ⅳ","溶液"],
-  "酸碱中和滴定":["Ⅳ","溶液"], "溶液反应":["Ⅳ","溶液"],
-  "有机化学":["Ⅴ","有机化学"], "有机分子模型":["Ⅴ","有机化学"],
-  "同分异构体":["Ⅴ","有机化学"], "位置异构与官能团":["Ⅴ","有机化学"],
-  "酯化反应":["Ⅴ","有机化学"],
-  "电化学":["Ⅵ","电化学"], "原电池与电解池":["Ⅵ","电化学"],
-  /* 生物 */
-  "细胞":["Ⅰ","细胞"], "细胞的结构":["Ⅰ","细胞"],
-  "细胞膜的流动镶嵌模型":["Ⅰ","细胞"], "细胞分裂":["Ⅰ","细胞"],
-  "细胞膜":["Ⅰ","细胞"], "物质跨膜运输":["Ⅰ","细胞"],
-  "代谢":["Ⅱ","代谢"], "光合与呼吸":["Ⅱ","代谢"], "酶的特性":["Ⅱ","代谢"],
-  "遗传物质":["Ⅲ","遗传"], "DNA 双螺旋":["Ⅲ","遗传"],
-  "遗传规律":["Ⅲ","遗传"], "孟德尔遗传":["Ⅲ","遗传"],
-  "基因表达":["Ⅳ","基因"], "转录与翻译":["Ⅳ","基因"],
-  "内环境":["Ⅴ","稳态"], "血糖的调节":["Ⅴ","稳态"],
-  "神经调节":["Ⅵ","调节"], "神经元与突触":["Ⅵ","调节"], "反射弧":["Ⅵ","调节"],
-  "循环系统":["Ⅶ","系统"], "血液循环":["Ⅶ","系统"],
-  "呼吸":["Ⅶ","系统"], "呼吸运动":["Ⅶ","系统"], "泌尿":["Ⅶ","系统"], "尿的形成":["Ⅶ","系统"],
-  "生态系统":["Ⅷ","生态"], "生态系统的能量流动":["Ⅷ","生态"],
-  "进化":["Ⅸ","进化"], "自然选择":["Ⅸ","进化"],
-};
-function getGroups(subject){
-  if(!LAB_DATA[subject])return[];
-  const groups={};const order=[];
-  for(const[ch,items]of Object.entries(LAB_DATA[subject])){
-    const key=CHAPTER_GROUP[ch]?CHAPTER_GROUP[ch][0]:"";
-    const name=CHAPTER_GROUP[ch]?CHAPTER_GROUP[ch][1]:ch;
-    if(!groups[key]){groups[key]={name,items:[],chapters:[ch]};order.push(key);}
-    groups[key].items.push(...items.map(x=>Object.assign({},x,{chapter:ch})));
-    groups[key].chapters.push(ch);
-  }
-  return order.map(k=>({num:k,name:groups[k].name,items:groups[k].items,chapters:[...new Set(groups[k].chapters)]}));
-}
-function initTabs(){
-  const tabbar=$("tabbar");
-  tabbar.innerHTML="";
-  for(const s of Object.keys(LAB_DATA)){
-    const t=document.createElement("button");
-    t.className="tab";t.textContent=s;
-    t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");render(s);};
-    tabbar.appendChild(t);
-  }
-  const searchWrap=document.createElement("div");
-  searchWrap.className="search-inline";
-  searchWrap.innerHTML='<span class="icon">🔍</span><input type="text" id="search" placeholder="搜索实验名称或章节" oninput="renderSearch()">';
-  tabbar.appendChild(searchWrap);
-  if(tabbar.firstChild)tabbar.firstChild.click();
-}
-let activeSubject="";
-function renderSearch(){render(activeSubject);}
-function render(subject){
-  activeSubject=subject;
-  const q=(document.getElementById("search")&&document.getElementById("search").value.toLowerCase())||"";
-  const container=document.getElementById("chContainer");
-  container.innerHTML="";
-  if(!subject||!LAB_DATA[subject])return;
-  const groups=getGroups(subject);
-  let cardIdx=0;
-  for(const g of groups){
-    const filtered=g.items.filter(l=>!q||l.title.toLowerCase().includes(q)||g.name.toLowerCase().includes(q)||(l.chapter||"").toLowerCase().includes(q));
-    if(!filtered.length)continue;
-    const card=document.createElement("div");
-    card.className="ch-card";
-    card.style.animationDelay=(cardIdx%9)*0.04+"s";
-    if(cardIdx%4===1)card.classList.add("dark");
-    if(cardIdx%4===3)card.classList.add("red");
-    card.innerHTML='<div class="ch-head"><div class="ch-num">'+g.num+'</div><div class="ch-name">'+g.name+'</div><div class="ch-count">'+filtered.length+' 个实验</div></div>';
-    const itemsDiv=document.createElement("div");
-    itemsDiv.className="lab-items";
-    filtered.forEach(l=>{
-      const d=document.createElement("div");
-      d.className="lab-item";
-      d.innerHTML='<span class="lab-bullet"></span><span class="lab-title">'+l.title+'</span><span class="grade-tag">'+(l.chapter||"")+'</span><span class="lab-arrow">→</span>';
-      d.onclick=()=>openLab(l.slug,l.title);
-      itemsDiv.appendChild(d);
-    });
-    card.appendChild(itemsDiv);
-    container.appendChild(card);
-    cardIdx++;
-  }
-}
-function enterLib(){
-  show('libView');
-  $('devTag').textContent='设备 '+(BOOT&&BOOT.deviceCode||'');
-  if(!window.__libInit){initTabs();window.__libInit=true;}
-}
-
 /* ================= 事件绑定 & 启动 ================= */
 $('plFrame').addEventListener('load',()=>{$('plLoad').style.display='none';});
 $('actCode').addEventListener('keydown',e=>{if(e.key==='Enter')submitActivation();});
+try{if(localStorage.getItem('k712-rail-hidden')==='1')setRailHidden(true);}catch(err){}
 boot();
 </script>
 </body>
