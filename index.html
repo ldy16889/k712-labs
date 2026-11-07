@@ -513,6 +513,7 @@ async function openLab(slug,title){
       +'<script>(function(){var t=setInterval(function(){if(window.__lab&&window.__lab.hud){clearInterval(t);'
       +'try{var d=document,hud=window.__lab.hud;'
       +'if(window.matchMedia("(max-width:899px)").matches)hud.fold("L",true);'
+      +'if(typeof hud.k.shape==="function")return;'
       +'function on(id,fn){var el=d.getElementById(id);if(el&&!el.__k712f){el.addEventListener("click",fn);el.__k712f=1;}}'
       +'on("foldL",function(){hud.fold("L",!hud.collapsed.L);});'
       +'on("foldR",function(){hud.fold("R",!hud.collapsed.R);});'
