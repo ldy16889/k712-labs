@@ -105,6 +105,42 @@ body.rail-hidden .reopen{display:inline-flex}
 
 .foot{margin-top:36px;padding-top:14px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font-size:12px;color:var(--ink-2);letter-spacing:.05em}
 .foot b{color:var(--ink);font-weight:500}
+.foot-link{appearance:none;background:none;border:0;padding:0;font-family:var(--sans);font-size:12px;color:var(--ink-2);letter-spacing:.05em;cursor:pointer;text-decoration:underline dotted rgba(107,93,79,.5);text-underline-offset:3px}
+.foot-link:hover{color:var(--red)}
+/* ===== 关于/版权 覆盖层 ===== */
+#aboutView{position:fixed;inset:0;background:var(--paper);z-index:300;display:none;flex-direction:column}
+.ab-bar{height:54px;display:flex;align-items:center;gap:12px;padding:0 14px;background:var(--coffee);border-bottom:2px solid #171008;flex-shrink:0}
+.ab-back{width:38px;height:38px;border:1px solid #5a4530;background:none;border-radius:2px;color:#e8ddd0;font-size:18px;cursor:pointer;flex-shrink:0;transition:all .2s}
+.ab-back:hover{border-color:var(--red);color:var(--red)}
+.ab-title{font-family:var(--serif);font-size:17px;font-weight:700;color:#f0ece4;letter-spacing:2px}
+.ab-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ab-shell{max-width:760px;margin:0 auto;padding:26px 20px 50px}
+.ab-head{display:flex;align-items:flex-start;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.ab-seal{width:40px;height:40px;flex:0 0 auto;background:var(--red);color:#fff8ed;display:grid;place-items:center;font-family:var(--serif);font-size:22px;transform:rotate(-4deg);border-radius:2px;box-shadow:0 1px 0 rgba(58,42,26,.2)}
+.ab-k{font-size:12px;letter-spacing:.14em;color:var(--ink-2);margin:0 0 2px}
+.ab-head h1{font-family:var(--serif);font-weight:500;font-size:28px;letter-spacing:.14em;line-height:1.2;margin:0}
+.ab-sec{margin-top:26px}
+.ab-sec-t{display:flex;align-items:baseline;gap:10px;padding-bottom:6px}
+.ab-sec-t .n{font-family:var(--serif);font-size:19px;color:var(--red);min-width:24px}
+.ab-sec-t h2{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:.14em;margin:0}
+.ab-rule{flex:1;height:0;border-top:1px solid rgba(212,201,181,.85);transform:translateY(-4px)}
+.ab-card{background:var(--paper-2);border:1px solid var(--border);border-radius:2px;padding:14px 16px;margin-top:10px}
+.ab-card p{margin:0 0 8px;line-height:1.75}
+.ab-card p:last-child{margin-bottom:0}
+.ab-card b{color:var(--ink)}
+.ab-dim{color:var(--ink-2);font-size:13.5px}
+.ab-row{display:flex;align-items:baseline;gap:10px;padding:8px 2px;border-bottom:1px dotted rgba(107,93,79,.28)}
+.ab-row:last-child{border-bottom:none}
+.ab-name{flex:0 0 auto;font-size:14.5px}
+.ab-leader{flex:1;height:0;border-bottom:1px dotted rgba(107,93,79,.35);transform:translateY(-4px)}
+.ab-val{flex:0 0 auto;font-size:12.5px;color:var(--ink-2);letter-spacing:.04em}
+.ab-dy{text-align:center;padding:4px 0 0}
+.ab-dy img{width:min(78vw,400px);height:auto;border-radius:2px;box-shadow:0 6px 24px rgba(58,42,26,.18)}
+.ab-cap{margin-top:12px;font-family:var(--serif);font-size:15px;letter-spacing:.08em}
+.ab-id{margin-top:4px;font-size:14px;color:var(--ink-2)}
+.ab-id b{color:var(--red);font-family:var(--serif);font-size:17px;letter-spacing:.12em}
+.ab-hint{margin-top:4px;font-size:12px;color:var(--ink-2)}
+.ab-foot{margin-top:32px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font-size:12px;color:var(--ink-2)}
 
 /* ===== 播放器 ===== */
 #playerView{position:fixed;inset:0;background:#171008;z-index:400;display:none;flex-direction:column}
@@ -225,7 +261,7 @@ body.rail-hidden .reopen{display:inline-flex}
 
       <div class="foot">
         <span id="devInfo"></span>
-        <span>K712 · 理化生实验库</span>
+        <button class="foot-link" onclick="openAbout()">关于 · 版权</button>
       </div>
     </main>
   </div>
@@ -256,6 +292,74 @@ body.rail-hidden .reopen{display:inline-flex}
 <div id="boot">
   <div class="spin"></div>
   <div id="bootMsg">正在启动…</div>
+</div>
+
+<!-- 关于/版权 覆盖层 -->
+<div id="aboutView">
+  <div class="ab-bar">
+    <button class="ab-back" onclick="closeAbout()">←</button>
+    <div class="ab-title">关于 · 版权</div>
+  </div>
+  <div class="ab-scroll" id="abScroll">
+    <div class="ab-shell">
+      <header class="ab-head">
+        <span class="ab-seal" aria-hidden="true">版</span>
+        <div>
+          <p class="ab-k">K7-12 实验室 · 理化生实验库</p>
+          <h1>关于 · 版权</h1>
+        </div>
+      </header>
+
+      <section class="ab-sec">
+        <div class="ab-sec-t"><span class="n">壹</span><h2>作品信息</h2><span class="ab-rule"></span></div>
+        <div class="ab-card">
+          <div class="ab-row"><span class="ab-name">作品名称</span><span class="ab-leader"></span><span class="ab-val">K7-12 实验室 · 理化生实验库</span></div>
+          <div class="ab-row"><span class="ab-name">作品内容</span><span class="ab-leader"></span><span class="ab-val" id="aboutCount">3D 互动实验课件</span></div>
+          <div class="ab-row"><span class="ab-name">著作权人</span><span class="ab-leader"></span><span class="ab-val">luoluo788@qq.com 抖音号-埋首</span></div>
+          <div class="ab-row"><span class="ab-name">首发平台</span><span class="ab-leader"></span><span class="ab-val">K7-12 实验室 App（安卓）</span></div>
+        </div>
+      </section>
+
+      <section class="ab-sec">
+        <div class="ab-sec-t"><span class="n">贰</span><h2>版权声明</h2><span class="ab-rule"></span></div>
+        <div class="ab-card">
+          <p>本库内全部 3D 互动实验（含程序代码、物理模型、教学设计、界面美术）均为<b>原创自研作品</b>，著作权归<b>埋首/luoluo788@qq.com</b>所有。</p>
+          <p>未经著作权人书面许可，任何单位或个人不得<b>复制、下载、传播、转载、逆向工程</b>或用于商业用途。</p>
+          <p class="ab-dim">本作品经激活授权后在授权设备上使用；每份授权与设备一一绑定（本软件免费使用＜当前是免费服务器，支持能力有限＞，采取免费授权的使用方式，只是为能保障使用体验和探知服务器的承载能力，而不是收费）。</p>
+          <p class="ab-dim" id="aboutNote">当前已上线 148 门互动实验 · 持续新增，欢迎关注作者抖音号提出意见和反馈，即时获取最新信息。</p>
+        </div>
+      </section>
+
+      <section class="ab-sec">
+        <div class="ab-sec-t"><span class="n">叁</span><h2>开源致谢</h2><span class="ab-rule"></span></div>
+        <div class="ab-card">
+          <p>本作品的 3D 渲染基于 three.js（r147，含 OrbitControls），特此致谢；原始版权声明随源码分发保留。</p>
+        </div>
+      </section>
+
+      <section class="ab-sec">
+        <div class="ab-sec-t"><span class="n">肆</span><h2>免责声明</h2><span class="ab-rule"></span></div>
+        <div class="ab-card">
+          <p>本作品为个人开发作品，如有 BUG，请到作者分享群留言告知具体问题。</p>
+        </div>
+      </section>
+
+      <section class="ab-sec">
+        <div class="ab-sec-t"><span class="n">伍</span><h2>关注作者 · 获取最新实验</h2><span class="ab-rule"></span></div>
+        <div class="ab-card ab-dy">
+          <img src="douyin.jpeg" alt="抖音 · 埋首 版权宣传页">
+          <p class="ab-cap">抖音扫码 · 或搜索 「埋首」</p>
+          <p class="ab-id">抖音号：<b>42213926693</b></p>
+          <p class="ab-hint">新实验上线、课件更新信息将在抖音同步发布</p>
+        </div>
+      </section>
+
+      <div class="ab-foot">
+        <span>© 2026 埋首 · 保留所有权利</span>
+        <span>K7-12 · 理化生实验库</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="lab_data.js"></script>
@@ -539,6 +643,17 @@ function closeLab(){
 function toggleTop(){
   const d=$('plFrame').contentDocument;
   if(d&&d.body){d.body.classList.toggle('k712-topshow');$('plTop').classList.toggle('on');}
+}
+function openAbout(){
+  $('aboutCount').textContent='当前上线 '+totalCount+' 门互动实验 · 持续新增';
+  $('aboutNote').textContent='当前已上线 '+totalCount+' 门互动实验 · 持续新增，欢迎关注作者抖音号提出意见和反馈，即时获取最新信息。';
+  $('aboutView').style.display='flex';
+  document.body.style.overflow='hidden';
+  $('abScroll').scrollTop=0;
+}
+function closeAbout(){
+  $('aboutView').style.display='none';
+  document.body.style.overflow='';
 }
 
 /* ================= 事件绑定 & 启动 ================= */
