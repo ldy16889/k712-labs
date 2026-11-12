@@ -381,7 +381,7 @@ body.rail-hidden .reopen{display:inline-flex}
 <script src="lab_data.js"></script>
 <script>
 /* ================= 基础 ================= */
-const IS_APP=/K712LabApp/.test(navigator.userAgent);
+const IS_APP=/K712LabApp/.test(navigator.userAgent)||!!(window.chrome&&window.chrome.webview);
 const $=id=>document.getElementById(id);
 function show(id){const m={gateView:'flex',authView:'flex',libView:'block'};['gateView','authView','libView'].forEach(x=>$(x).style.display=x===id?m[x]:'none');}
 function authErr(m){const e=$('authErr');e.textContent=m||'';e.style.display=m?'block':'none';}
