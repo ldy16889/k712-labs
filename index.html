@@ -219,7 +219,7 @@ body.rail-hidden .reopen{display:inline-flex}
 <!-- 设备激活 -->
 <div id="authView">
   <div class="login-card">
-    <img class="auth-poster" src="douyin.jpeg" alt="抖音 · 关注作者 埋首">
+    <img class="auth-poster" src="douyin.jpeg" alt="抖音 · 关注作者 埋首" loading="lazy" decoding="async">
     <h1>理化生实验库</h1>
     <p class="tag2">格物致知 · 明理践行</p>
     <div class="devbox">
@@ -363,7 +363,7 @@ body.rail-hidden .reopen{display:inline-flex}
       <section class="ab-sec">
         <div class="ab-sec-t"><span class="n">伍</span><h2>关注作者 · 获取最新实验</h2><span class="ab-rule"></span></div>
         <div class="ab-card ab-dy">
-          <img src="douyin.jpeg" alt="抖音 · 埋首 版权宣传页">
+          <img src="douyin.jpeg" alt="抖音 · 埋首 版权宣传页" loading="lazy" decoding="async">
           <p class="ab-cap">抖音扫码 · 或搜索 「埋首」</p>
           <p class="ab-id">抖音号：<b>42213926693</b></p>
           <p class="ab-hint">新实验上线、课件更新信息将在抖音同步发布</p>
@@ -428,8 +428,16 @@ async function boot(){
   if(!IS_APP){show('gateView');return;}
   show('authView');
   $('devCode').textContent='…';
-  const b=await waitBoot(15000);
-  if(!b){authErr('App 通信失败，请完全关闭后重新打开');$('devCode').textContent='—';return;}
+  let b=await waitBoot(15000);
+  if(!b){
+    /* 慢网恢复：壳在页面完全加载（含大图）后才注入 K712_BOOT，
+       快窗 15s 超时不再终态报错——继续监听 k712boot 事件至累计 120s，
+       注入一旦到达立即恢复（清错误、显示设备码、已激活则直接进库）。 */
+    authErr('网络较慢，正在等待 App 握手…（最多 2 分钟，无需重启）');
+    b=await waitBoot(105000);
+    if(!b){authErr('App 通信失败，请完全关闭后重新打开');$('devCode').textContent='—';return;}
+    authErr('');
+  }
   BOOT=b;
   $('devCode').textContent=b.deviceCode||'—';
   if(b.activated&&b.key){
